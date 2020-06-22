@@ -1,0 +1,13 @@
+.header {
+  width: 100%;
+  position: fixed;
+  background: #fbfcff;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.header-title {
+  font-size: 1.5rem;
+}
+.header-link {
+  color: #184d47;
+}
