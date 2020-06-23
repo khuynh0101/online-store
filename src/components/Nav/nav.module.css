@@ -1,0 +1,139 @@
+.navContainer {
+  color: #96bb7c;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 0.5rem;
+}
+.navContainerItem {
+  display: inline;
+  padding-right: 1.2rem;
+}
+.subItems {
+  position: relative;
+}
+.navContainerSubItems {
+  position: absolute;
+  left: 0px;
+  background: #fff;
+  width: 7.5rem;
+  font-size: 0.8rem;
+  z-index: 10;
+  border-radius: 4px;
+  box-shadow: 0px 0px 1px #96bb7c;
+}
+.hide {
+  animation: fadeOut 0.4s;
+  display: none;
+}
+.show {
+  display: block;
+  animation: fadeIn 0.4s;
+}
+.navContainerSubitem {
+  padding: 0.5rem;
+}
+.navContainerSubitems li:not(:last-child) {
+  border-bottom: 0.5px #3b9288 solid;
+}
+.navAction {
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+}
+.arrowSpan {
+  display: inline-block;
+  margin-bottom: -5px;
+}
+
+.svgArrow {
+  height: 14px;
+  width: 14px;
+}
+.svgArrowUp {
+  transform: rotate(180deg);
+  transition: transform 0.1s linear;
+}
+.svgArrowDown {
+  transform: rotate(0deg);
+  transition: transform 0.1s linear;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: center;
+}
+/* .link {
+  color: #3b9288;
+}
+.active,
+.link:hover {
+  color: #184d47;
+} */
+
+.linkArrow {
+  display: inline-flex;
+  align-items: center;
+}
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  padding: 94px 0 0 1rem;
+  background: linear-gradient(#fff, #f2f2f2);
+  align-items: center;
+}
+.heroGridImg {
+  width: 100%;
+  height: auto;
+}
+.heroGridContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1rem 0 1rem 0;
+}
+.heroGridContentText {
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  .navContainer {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    position: unset;
+  }
+  .navAction {
+    padding: 0;
+  }
+  .cart {
+    position: unset;
+    padding-left: 1rem;
+  }
+  .inputSearch {
+    position: unset;
+    width: 330px;
+  }
+  .svgImg {
+    height: 24px;
+    width: 24px;
+  }
+  .svgArrow {
+    height: 18px;
+    width: 18px;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+@media (min-width: 2048px) {
+  html {
+    font-size: 20px;
+  }
+}

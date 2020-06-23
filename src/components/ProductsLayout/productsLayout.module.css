@@ -1,0 +1,29 @@
+.paragraphLeftPadding {
+  padding-left: 1rem;
+}
+.productsContainer {
+  padding: 1rem 0 0 0;
+}
+.productsContentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  text-align: center;
+}
+.productFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.productBackgroundGradient {
+  background: linear-gradient(#fff, #f2f2f2);
+}
+.price {
+  color: #57b68a;
+}
+.imgPlant {
+  width: 64%;
+  height: auto;
+}

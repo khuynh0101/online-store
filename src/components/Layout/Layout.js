@@ -22,7 +22,7 @@ export const Layout = ({ menu, onMenuItemClick }) => {
         </Route>
         <Route path='/wishlist'></Route>
         <Route path='/search/:term'></Route>
-        <Route path='/search/cart'></Route>
+        <Route path='/cart'></Route>
         <Route path='/' exact>
           <Home />
         </Route>

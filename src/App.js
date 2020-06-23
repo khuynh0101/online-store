@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import './App.css';
+import './app.module.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { NavStateProvider } from './components/Providers/NavState';
+import { CartStateProvider } from './components/Providers/CartState';
 
 const App = () => {
   return (
     <>
       <Router>
         <NavStateProvider>
-          <Layout />
+          <CartStateProvider>
+            <Layout />
+          </CartStateProvider>
         </NavStateProvider>
       </Router>
     </>

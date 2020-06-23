@@ -1,0 +1,33 @@
+.link {
+  color: #3b9288;
+}
+.active,
+.link:hover {
+  color: #184d47;
+}
+
+.textLarge {
+  font-size: 1.5rem;
+  color: #184d47;
+}
+.textMedium {
+  font-size: 1rem;
+  color: #184d47;
+}
+.textSmall {
+  font-size: 0.8rem;
+  color: #184d47;
+}
+
+.button {
+  text-transform: none;
+  padding: 0.5rem 2rem;
+  background: #57b68a;
+  text-align: center;
+  font-size: 0.8rem;
+  color: white;
+}
+.button:active {
+  position: relative;
+  top: 1px;
+}
