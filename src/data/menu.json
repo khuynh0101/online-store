@@ -7,7 +7,7 @@
   },
   {
     "name": "Plants",
-    "url": "/plants",
+    "url": "#",
     "isActive": false,
     "showSubMenus": false,
     "subMenus": [

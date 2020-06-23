@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import './Nav.css';
-import { useHistory } from 'react-router-dom';
+import { SearchTextBox } from '../Search/SearchTextBox';
+import { Link } from 'react-router-dom';
 import { useNavState } from '../../components/Providers/NavState';
 
 export const Nav = () => {
-  const history = useHistory();
   const [navState, setNavState] = useNavState();
 
   const handleMenuItemClick = (event, index) => {
-    event.preventDefault();
-
     let menuItems = [...navState];
     menuItems.forEach((menuItem, idx) => {
       if (idx === index) {
-        history.push(menuItem.url);
         menuItem.isActive = true;
         if (menuItem.subMenus) menuItem.showSubMenus = !menuItem.showSubMenus;
       } else {
@@ -25,15 +22,29 @@ export const Nav = () => {
     setNavState(menuItems);
   };
 
-  const renderSubMenu = (subMenus) => {
+  const handleSubMenuItemClick = (event, parentIndex, index) => {
+    const menuItems = [...navState];
+    const menuItem = menuItems[parentIndex];
+    menuItem.showSubMenus = !menuItem.showSubMenus;
+    const subMenuItems = menuItem.subMenus;
+    setNavState(menuItems);
+  };
+
+  const renderSubMenu = (subMenus, parentIndex) => {
     return (
       <ul className='nav-container-subitems show'>
         {subMenus.map((subMenuItem, index) => {
           return (
             <li key={index} className='nav-container-subitem'>
-              <a className='link' href='#'>
+              <Link
+                className='link'
+                to={subMenuItem.url}
+                onClick={(event) =>
+                  handleSubMenuItemClick(event, parentIndex, index)
+                }
+              >
                 <span>{subMenuItem.name}</span>
-              </a>
+              </Link>
             </li>
           );
         })}
@@ -44,6 +55,7 @@ export const Nav = () => {
     <nav className='nav-container'>
       <ul className='nav-container-items'>
         {navState.map((menuItem, index) => {
+          let svgArrowClassName = 'svg-arrow';
           let liClassName = 'nav-container-item';
           let selectedClassName = menuItem.isActive ? 'link active' : 'link';
           if (menuItem.subMenus) {
@@ -52,17 +64,20 @@ export const Nav = () => {
               : '';
             liClassName = `${liClassName} subitems`;
           }
+          svgArrowClassName = menuItem.showSubMenus
+            ? `${svgArrowClassName} svg-arrow-up`
+            : `${svgArrowClassName} svg-arrow-down`;
           return (
             <li key={index} className={liClassName}>
-              <a
+              <Link
                 className={selectedClassName}
-                href={menuItem.url}
+                to={menuItem.url}
                 onClick={(event) => handleMenuItemClick(event, index)}
               >
                 <span>{menuItem.name}</span>
                 {menuItem.subMenus && (
                   <svg
-                    className='svg-arrow'
+                    className={svgArrowClassName}
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='#3b9288'
@@ -73,15 +88,33 @@ export const Nav = () => {
                     <path d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z' />
                   </svg>
                 )}
-              </a>
-              {menuItem.isActive && menuItem.showSubMenus && menuItem.subMenus
-                ? renderSubMenu(menuItem.subMenus)
+              </Link>
+              {menuItem.showSubMenus
+                ? renderSubMenu(menuItem.subMenus, index)
                 : null}
             </li>
           );
         })}
       </ul>
-
+      <div className='nav-action'>
+        <SearchTextBox />
+        <a className='link cart'>
+          <span className='cart-flex'>
+            <svg
+              className='svg-img'
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 24 24'
+            >
+              <path d='M0 0h24v24H0V0z' fill='none' />
+              <path
+                className='svg-action'
+                d='M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'
+              />
+            </svg>
+            <span className='counter'>1</span>
+          </span>
+        </a>
+      </div>
       {/* <ul className='nav-container-items'>
         <li className='nav-container-item'>
           <a className='link' href='index.html'>
@@ -141,7 +174,7 @@ export const Nav = () => {
           </a>
         </li>
       </ul> */}
-      <div className='nav-action'>
+      {/* <div className='nav-action'>
         <div className='nav-action-search'>
           <input className='input-search' type='text' placeholder='Search' />
           <svg
@@ -172,7 +205,7 @@ export const Nav = () => {
             <span className='counter'>1</span>
           </span>
         </a>
-      </div>
+      </div> */}
     </nav>
   );
 };
