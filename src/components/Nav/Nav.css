@@ -5,7 +5,7 @@
   position: relative;
   padding-top: 0.5rem;
 }
-.nav-containter-item {
+.nav-container-item {
   display: inline;
   padding-right: 1.5rem;
 }
@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.nav-containter-subitems {
+.nav-container-subitems {
   position: absolute;
   left: 0px;
   background: #fff;
@@ -31,10 +31,10 @@
   display: block;
   animation: fadeIn 0.4s;
 }
-.nav-containter-subitem {
+.nav-container-subitem {
   padding: 0.5rem;
 }
-.nav-containter-subitems li:not(:last-child) {
+.nav-container-subitems li:not(:last-child) {
   border-bottom: 0.5px #3b9288 solid;
 }
 .nav-action {
@@ -51,6 +51,10 @@
   position: absolute;
   right: 4px;
   top: 8px;
+}
+.arrow-span {
+  display: inline-block;
+  margin-bottom: -5px;
 }
 .svg-img {
   height: 20px;
@@ -105,12 +109,14 @@
 .link {
   color: #3b9288;
 }
+.active,
 .link:hover {
   color: #184d47;
 }
+
 .link-arrow {
   display: inline-flex;
-  align-items: flex-end;
+  align-items: center;
 }
 .hero-grid {
   display: grid;
@@ -127,7 +133,7 @@
 .hero-grid-content {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   padding: 1rem 0 1rem 0;
 }
 .hero-grid-content-text {
@@ -151,13 +157,11 @@
     position: unset;
     padding-left: 1rem;
   }
-
   .input-search {
     position: unset;
     width: 330px;
   }
-  .svg-img,
-  .svg-arrow {
+  .svg-img {
     height: 24px;
     width: 24px;
   }
@@ -177,14 +181,14 @@
     width: 330px;
     transition: 0.5s;
   }
-  @media (min-width: 1024px) {
-    html {
-      font-size: 18px;
-    }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
   }
-  @media (min-width: 2048px) {
-    html {
-      font-size: 20px;
-    }
+}
+@media (min-width: 2048px) {
+  html {
+    font-size: 20px;
   }
 }

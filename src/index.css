@@ -13,7 +13,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 h1 {
   margin: 0;
 }
@@ -29,7 +28,4 @@ ul {
 input {
   border: none;
   outline: none;
-}
-code {
-  font-family: Roboto Slab;
 }

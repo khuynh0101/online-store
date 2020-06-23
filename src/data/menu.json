@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Home",
+    "url": "/",
+    "showSubMenus": false,
+    "isActive": true
+  },
+  {
+    "name": "Plants",
+    "url": "/plants",
+    "isActive": false,
+    "showSubMenus": false,
+    "subMenus": [
+      {
+        "name": "Bonsai",
+        "url": "/plants/bonsai"
+      },
+      {
+        "name": "Hanging Basket",
+        "url": "/plants/hangingbasket"
+      },
+      {
+        "name": "Palm",
+        "url": "/plants/palm"
+      },
+      {
+        "name": "Succulent",
+        "url": "/plants/succulent"
+      }
+    ]
+  },
+  {
+    "name": "WishList",
+    "url": "/wishlist",
+    "isActive": false,
+    "showSubMenus": false
+  },
+  {
+    "name": "Contact",
+    "url": "/contact",
+    "isActive": false,
+    "showSubMenus": false
+  }
+]
