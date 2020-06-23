@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Nav.css';
+import { useHistory } from 'react-router-dom';
+import { useNavState } from '../../components/Providers/NavState';
 
-export const Nav = ({ menu, onMenuItemClick }) => {
+export const Nav = () => {
+  const history = useHistory();
+  const [navState, setNavState] = useNavState();
+
+  const handleMenuItemClick = (event, index) => {
+    event.preventDefault();
+
+    let menuItems = [...navState];
+    menuItems.forEach((menuItem, idx) => {
+      if (idx === index) {
+        history.push(menuItem.url);
+        menuItem.isActive = true;
+        if (menuItem.subMenus) menuItem.showSubMenus = !menuItem.showSubMenus;
+      } else {
+        menuItems[idx].isActive = false;
+        menuItem.showSubMenus = false;
+      }
+    });
+    menuItems[index].isActive = true;
+    setNavState(menuItems);
+  };
+
   const renderSubMenu = (subMenus) => {
     return (
       <ul className='nav-container-subitems show'>
@@ -20,23 +43,24 @@ export const Nav = ({ menu, onMenuItemClick }) => {
   return (
     <nav className='nav-container'>
       <ul className='nav-container-items'>
-        {menu.map((menuItem, index) => {
+        {navState.map((menuItem, index) => {
           let liClassName = 'nav-container-item';
           let selectedClassName = menuItem.isActive ? 'link active' : 'link';
           if (menuItem.subMenus) {
-            selectedClassName += menuItem.subMenu ? ' link-arrow' : '';
-            liClassName += ' subitems';
+            selectedClassName = menuItem.subMenus
+              ? `${selectedClassName} link-arrow`
+              : '';
+            liClassName = `${liClassName} subitems`;
           }
-
           return (
             <li key={index} className={liClassName}>
               <a
                 className={selectedClassName}
                 href={menuItem.url}
-                onClick={(event) => onMenuItemClick(event, index)}
+                onClick={(event) => handleMenuItemClick(event, index)}
               >
                 <span>{menuItem.name}</span>
-                {menuItem.subMenu && (
+                {menuItem.subMenus && (
                   <svg
                     className='svg-arrow'
                     xmlns='http://www.w3.org/2000/svg'
