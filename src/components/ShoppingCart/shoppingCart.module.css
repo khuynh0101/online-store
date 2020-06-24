@@ -1,16 +1,28 @@
-.cart {
-  position: absolute;
-  top: 8px;
-  right: 0;
+.container {
+  padding: 1rem 0 0 0;
 }
-.cartFlex {
-  display: flex;
-  flex-direction: column-reverse;
+.paragraphLeftPadding {
+  padding-left: 1rem;
+}
+
+.shoppingBagContainer {
+  width: 100%;
+  text-align: center;
+}
+.shoppingBag {
+  display: grid;
+  grid-template-columns: 0.25fr 1fr 1fr 0.5fr 0.5fr;
   align-items: center;
-  margin-top: -16px;
+  padding-right: 1rem; /*fixed this*/
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
-.counter {
-  font-size: 0.8rem;
+.shoppingBag:not(:last-child) {
+  border-bottom: 0.5px solid #3b9288;
+}
+.svgImg {
+  height: 20px;
+  width: 20px;
 }
 .svgAction {
   fill: #3b9288;
@@ -18,47 +30,55 @@
 .svgAction:hover {
   fill: #184d47;
 }
-.svgImg {
-  height: 22px;
-  width: 22px;
+.imgPlant {
+  max-width: 60%;
+  height: auto;
 }
+.inputItemCount {
+  width: 24px;
+}
+.itemCounterFlex {
+  display: flex;
+  justify-content: center;
+}
+.textLarge {
+  font-size: 1.5rem;
+  color: #184d47;
+}
+.textMedium {
+  font-size: 1rem;
+  color: #184d47;
+}
+.textSmall {
+  font-size: 0.8rem;
+  color: #184d47;
+}
+.amount {
+  justify-self: end;
+}
+.imgPlantGradient {
+  background: linear-gradient(#fff, #f2f2f2);
+}
+/* shopping cart */
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-  .cart {
-    position: unset;
-    padding-left: 1rem;
+
+  .shoppingBag {
+    padding-right: 0;
+    margin: auto;
+    max-width: 70%;
   }
+
   .svgImg {
     height: 24px;
     width: 24px;
   }
-  @media (min-width: 768px) {
-    html {
-      font-size: 16px;
-    }
-    .cart {
-      position: unset;
-      padding-left: 1rem;
-    }
-    .svgImg,
-    .svgArrow {
-      height: 24px;
-      width: 24px;
-    }
-  }
-  @media (min-width: 1024px) {
-    html {
-      font-size: 18px;
-    }
-  }
-  @media (min-width: 2048px) {
-    html {
-      font-size: 20px;
-    }
-  }
 }
+/* shopping cart */
+
 @media (min-width: 1024px) {
   html {
     font-size: 18px;
@@ -67,5 +87,21 @@
 @media (min-width: 2048px) {
   html {
     font-size: 20px;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

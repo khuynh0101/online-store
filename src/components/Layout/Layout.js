@@ -4,23 +4,34 @@ import { Header } from '../Header/Header';
 import { Home } from '../Home/Home';
 import { Contact } from '../Contact/Contact';
 import { Plants } from '../Plants/Plants';
+import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
 import { Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
   return (
     <>
       <Header />
-      <div className={styles.plantContainer}>
-        <Route path='/plants/:name'>
+      <Route path='/plants/:name'>
+        <div className={styles.plantContainer}>
           <Plants />
-        </Route>
-        <Route path='/contact'>
+        </div>
+      </Route>
+      <Route path='/contact'>
+        <div className={styles.plantContainer}>
           <Contact />
-        </Route>
-        <Route path='/wishlist'></Route>
-        <Route path='/search/:term'></Route>
-        <Route path='/cart'></Route>
-      </div>
+        </div>
+      </Route>
+      <Route path='/wishlist'>
+        <div className={styles.plantContainer}> </div>
+      </Route>
+      <Route path='/search/:term'>
+        <div className={styles.plantContainer}></div>
+      </Route>
+      <Route path='/cart'>
+        <div className={styles.plantContainer}>
+          <ShoppingCart />
+        </div>
+      </Route>
       <Route path='/' exact>
         <Home />
       </Route>

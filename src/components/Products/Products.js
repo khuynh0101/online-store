@@ -1,23 +1,28 @@
 import React from 'react';
-import styles from './productsLayout.module.css';
+import styles from './products.module.css';
 import globalStyles from '../../app.module.css';
 import { useProductsState } from '../Providers/ProductsState';
 import { useCartState } from '../Providers/CartState';
 
-export const ProductsLayout = ({ heading, products }) => {
+export const Products = ({ heading, products }) => {
   const [productItems, setProductItems] = useProductsState();
   const [cartItems, setCartItems] = useCartState();
 
-  const handleToggle = (id) => {
+  const handleMouseEnter = (id) => {
     //const { product, productList } = getProduct(id);
     let { item, items } = getItem(productItems, id);
-    if (!item.isSelected) item.isSelected = false;
-    item.isSelected = !item.isSelected;
+    item.isSelected = true;
+    setProductItems(items);
+  };
+  const handleMouseOut = (id) => {
+    //const { product, productList } = getProduct(id);
+    let { item, items } = getItem(productItems, id);
+    item.isSelected = false;
     setProductItems(items);
   };
 
   const handleToggleToCart = (id) => {
-    let { item, items, index } = getItem(cartItems, id); //getCart(id);
+    let { item, items, index } = getItem(cartItems, id);
     if (item) {
       items.splice(index, 1);
     } else {
@@ -28,9 +33,6 @@ export const ProductsLayout = ({ heading, products }) => {
       items.push(item);
     }
     setCartItems(items);
-    // if (!product.addedToCart) product.addedToCart = false;
-    // product.addedToCart = !product.addedToCart;
-    // setProductItems(productList);
   };
   const getItem = (itemList, id) => {
     const items = [...itemList];
@@ -65,8 +67,8 @@ export const ProductsLayout = ({ heading, products }) => {
               </div>
               <div
                 className={styles.productBackgroundGradient}
-                onMouseEnter={() => handleToggle(product.id)}
-                onMouseLeave={() => handleToggle(product.id)}
+                onMouseEnter={() => handleMouseEnter(product.id)}
+                onMouseLeave={() => handleMouseOut(product.id)}
               >
                 <img
                   alt={product.name}

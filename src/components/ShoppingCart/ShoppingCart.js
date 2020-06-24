@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styles from './shoppingCart.module.css';
 import globalStyles from '../../app.module.css';
 import { useProductsState } from '../Providers/ProductsState';
@@ -8,22 +7,139 @@ import { useCartState } from '../Providers/CartState';
 export const ShoppingCart = () => {
   const [productItems, setProductItems] = useProductsState();
   const [cartItems, setCartItems] = useCartState();
+
+  const getProduct = (id) => {
+    const products = productItems.filter((p) => p.id === id);
+    if (products && products.length > 0) return products[0];
+    return null;
+  };
+
+  const removeItem = (index) => {
+    const items = [...cartItems];
+    const item = items.splice(index, 1);
+    setCartItems(items);
+  };
+
+  const updateCount = (index, increase) => {
+    const items = [...cartItems];
+    const item = items[index];
+    if (item) {
+      if (increase) {
+        item.numItem++;
+        item.price = item.numItem * item.price;
+      }
+      if (!increase) {
+        if (item.numItem >= 1) {
+          item.numItem--;
+          item.price = item.numItem * item.price;
+        }
+      }
+      setCartItems(items);
+    }
+  };
+
   return (
-    <Link to='/cart' className={`${globalStyles.link} ${styles.cart}`}>
-      <span className={styles.cartFlex}>
-        <svg
-          className={styles.svgImg}
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 24 24'
-        >
-          <path d='M0 0h24v24H0V0z' fill='none' />
-          <path
-            className={styles.svgAction}
-            d='M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'
-          />
-        </svg>
-        <span className={styles.counter}>{cartItems.length}</span>
-      </span>
-    </Link>
+    <section className={styles.container}>
+      <p
+        className={`${styles.paragraphLeftPadding} ${globalStyles.textMedium}`}
+      >
+        Shopping Bag
+      </p>
+      <div className={styles.shoppingBagContainer}>
+        {cartItems.length === 0 && (
+          <p
+            className={`${styles.paragraphLeftPadding} ${globalStyles.textMedium}`}
+          >
+            Your bag is empty.
+          </p>
+        )}
+        {cartItems.map((cartItem, index) => {
+          const product = getProduct(cartItem.id);
+          {
+            return (
+              product && (
+                <>
+                  <ul key={index} className={styles.shoppingBag}>
+                    <li>
+                      <a
+                        className={globalStyles.link}
+                        href='#'
+                        onClick={() => removeItem(index)}
+                      >
+                        <svg
+                          className={styles.svgImg}
+                          xmlns='http://www.w3.org/2000/svg'
+                          viewBox='0 0 24 24'
+                        >
+                          <path d='M0 0h24v24H0z' fill='none' />
+                          <path
+                            className={styles.svgAction}
+                            d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li className={styles.imgPlantGradient}>
+                      <img className={styles.imgPlant} src={product.url} />
+                    </li>
+                    <li>
+                      <span className={globalStyles.textMedium}>
+                        {product.name}
+                      </span>
+                    </li>
+                    <li className={styles.itemCounterFlex}>
+                      <a
+                        className={globalStyles.link}
+                        href='#'
+                        onClick={() => updateCount(index, true)}
+                      >
+                        <svg
+                          className={styles.svgImg}
+                          xmlns='http://www.w3.org/2000/svg'
+                          viewBox='0 0 24 24'
+                        >
+                          <path d='M0 0h24v24H0z' fill='none' />
+                          <path
+                            className={styles.svgAction}
+                            d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'
+                          />
+                        </svg>
+                      </a>
+                      <div
+                        className={`${globalStyles.textMedium} ${styles.counter}`}
+                      >
+                        {cartItem.numItem}
+                      </div>
+                      <a
+                        className={globalStyles.link}
+                        href='#'
+                        onClick={() => updateCount(index, false)}
+                      >
+                        <svg
+                          className={styles.svgImg}
+                          xmlns='http://www.w3.org/2000/svg'
+                          viewBox='0 0 24 24'
+                        >
+                          <path d='M0 0h24v24H0z' fill='none' />
+                          <path
+                            className={styles.svgAction}
+                            d='M19 13H5v-2h14v2z'
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li className={styles.amount}>
+                      <span className={styles.textMedium}>
+                        ${cartItem.numItem * product.price}
+                      </span>
+                    </li>
+                  </ul>
+                </>
+              )
+            );
+          }
+        })}
+      </div>
+    </section>
   );
 };

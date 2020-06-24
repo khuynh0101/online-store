@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './nav.module.css';
 import globalStyles from '../../app.module.css';
 import { SearchTextBox } from '../Search/SearchTextBox';
-import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
+import { Cart } from '../ShoppingCart/Cart';
 import { Link } from 'react-router-dom';
 import { useNavState } from '../../components/Providers/NavState';
 
@@ -44,7 +44,7 @@ export const Nav = () => {
                 to={subMenuItem.url}
                 onClick={() => toggleSubMenu(parentIndex)}
               >
-                <span>{subMenuItem.name}</span>
+                <span>{subMenuItem.type}</span>
               </Link>
             </li>
           );
@@ -101,7 +101,7 @@ export const Nav = () => {
       </ul>
       <div className={styles.navAction}>
         <SearchTextBox />
-        <ShoppingCart />
+        <Cart />
       </div>
     </nav>
   );

@@ -2,12 +2,28 @@ import React from 'react';
 import styles from './home.module.css';
 import globalStyles from '../../app.module.css';
 import { Link } from 'react-router-dom';
-import { ProductsLayout } from '../ProductsLayout/ProductsLayout';
+import { Products } from '../Products/Products';
 import { useProductsState } from '../Providers/ProductsState';
+import { useNavState } from '../../components/Providers/NavState';
 
 export const Home = () => {
+  const [navState, setNavState] = useNavState();
   const [products, setProducts] = useProductsState();
   const filteredProducts = products.filter((p) => p.recommended);
+
+  //setting the nav to highlight "Plants" menu item
+  const updateNavMenuSelected = () => {
+    let menuItems = [...navState];
+    menuItems.forEach((menuItem, index) => {
+      if (menuItem.name === 'Plants') {
+        menuItem.isActive = true;
+      } else {
+        menuItems[index].isActive = false;
+        menuItem.showSubMenus = false;
+      }
+    });
+    setNavState(menuItems);
+  };
   return (
     <>
       <section className={styles.heroGrid}>
@@ -20,6 +36,7 @@ export const Home = () => {
           <Link
             to='/plants/all'
             className={`${globalStyles.link} ${globalStyles.linkButton}`}
+            onClick={updateNavMenuSelected}
           >
             <span>Shop now</span>
           </Link>
@@ -30,7 +47,7 @@ export const Home = () => {
           className={styles.heroGridImg}
         />
       </section>
-      <ProductsLayout
+      <Products
         heading='Check out our recommendations for your homes'
         products={filteredProducts}
       />

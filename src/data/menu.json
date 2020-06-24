@@ -12,19 +12,19 @@
     "showSubMenus": false,
     "subMenus": [
       {
-        "name": "Bonsai",
+        "type": "Bonsai",
         "url": "/plants/bonsai"
       },
       {
-        "name": "Hanging Basket",
-        "url": "/plants/hangingbasket"
+        "type": "Hanging",
+        "url": "/plants/hanging"
       },
       {
-        "name": "Palm",
+        "type": "Palm",
         "url": "/plants/palm"
       },
       {
-        "name": "Succulent",
+        "type": "Succulent",
         "url": "/plants/succulent"
       }
     ]
