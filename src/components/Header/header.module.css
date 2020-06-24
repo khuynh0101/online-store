@@ -3,11 +3,12 @@
   position: fixed;
   background: #fbfcff;
   padding: 1rem 1rem 0 1rem;
+  z-index: 100;
 }
 
-.header-title {
+.headerTitle {
   font-size: 1.5rem;
 }
-.header-link {
+.headerLink {
   color: #184d47;
 }

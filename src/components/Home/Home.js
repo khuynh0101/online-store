@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './home.module.css';
 import globalStyles from '../../app.module.css';
+import { Link } from 'react-router-dom';
 import { ProductsLayout } from '../ProductsLayout/ProductsLayout';
 import { useProductsState } from '../Providers/ProductsState';
 
@@ -16,12 +17,12 @@ export const Home = () => {
           >
             All kinds of plants for all kinds of homes
           </p>
-          <a
-            href='index.html'
+          <Link
+            to='/plants/all'
             className={`${globalStyles.link} ${globalStyles.linkButton}`}
           >
             <span>Shop now</span>
-          </a>
+          </Link>
         </div>
         <img
           alt='Hero'

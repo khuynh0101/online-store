@@ -1,12 +1,17 @@
 import React from 'react';
-import './Header.css';
+import styles from './header.module.css';
+import { Nav } from '../Nav/Nav';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
-    <h1 className='header-title'>
-      <a className='header-link' href='index.html'>
-        Plant Decor
-      </a>
-    </h1>
+    <section className={styles.header}>
+      <h1 className={styles.headerTitle}>
+        <Link className={styles.headerLink} to='/'>
+          Plant Decor
+        </Link>
+      </h1>
+      <Nav />
+    </section>
   );
 };

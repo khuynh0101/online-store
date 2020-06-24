@@ -2,35 +2,50 @@ import React from 'react';
 import styles from './productsLayout.module.css';
 import globalStyles from '../../app.module.css';
 import { useProductsState } from '../Providers/ProductsState';
+import { useCartState } from '../Providers/CartState';
 
 export const ProductsLayout = ({ heading, products }) => {
   const [productItems, setProductItems] = useProductsState();
+  const [cartItems, setCartItems] = useCartState();
 
   const handleToggle = (id) => {
-    const { product, productList } = getProduct(id);
-    if (!product.isSelected) product.isSelected = false;
-    product.isSelected = !product.isSelected;
-    setProductItems(productList);
+    //const { product, productList } = getProduct(id);
+    let { item, items } = getItem(productItems, id);
+    if (!item.isSelected) item.isSelected = false;
+    item.isSelected = !item.isSelected;
+    setProductItems(items);
   };
 
-  const handleAddToCart = (id) => {
-    const { product, productList } = getProduct(id);
-    if (!product.addedToCart) product.addedToCart = false;
-    product.addedToCart = !product.addedToCart;
-    console.log(product);
-    setProductItems(productList);
-  };
-
-  const getProduct = (id) => {
-    const productList = [...productItems];
-    const productItem = productList.filter((p) => p.id === id);
-    let product = null;
-    if (productItem && productItem.length > 0) {
-      product = productItem[0];
+  const handleToggleToCart = (id) => {
+    let { item, items, index } = getItem(cartItems, id); //getCart(id);
+    if (item) {
+      items.splice(index, 1);
+    } else {
+      item = {
+        id: id,
+        numItem: 1,
+      };
+      items.push(item);
     }
-    return { product, productList };
+    setCartItems(items);
+    // if (!product.addedToCart) product.addedToCart = false;
+    // product.addedToCart = !product.addedToCart;
+    // setProductItems(productList);
   };
-
+  const getItem = (itemList, id) => {
+    const items = [...itemList];
+    const index = items.findIndex((p) => p.id === id);
+    const itemObj = items.filter((p) => p.id === id);
+    let item = null;
+    if (itemObj && itemObj.length > 0) {
+      item = itemObj[0];
+    }
+    return { item, items, index };
+  };
+  const isInCart = (product) => {
+    let { item, items, index } = getItem(cartItems, product.id);
+    return index > -1;
+  };
   return (
     <section className={styles.productsContainer}>
       <p
@@ -64,10 +79,12 @@ export const ProductsLayout = ({ heading, products }) => {
                       <button
                         className={globalStyles.button}
                         type='button'
-                        onClick={() => handleAddToCart(product.id)}
+                        onClick={() => handleToggleToCart(product.id)}
                       >
-                        {product.addedToCart && `Remove`}
-                        {!product.addedToCart && `Add`}
+                        {isInCart(product) && `Remove from cart`}
+                        {!isInCart(product) && `Add to cart`}
+                        {/* {product.addedToCart && `Remove from cart`}
+                        {!product.addedToCart && `Add to cart`} */}
                       </button>
                     </div>
                   </>

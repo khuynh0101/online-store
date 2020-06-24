@@ -24,25 +24,25 @@ export const Nav = () => {
     setNavState(menuItems);
   };
 
-  const handleSubMenuItemClick = (event, parentIndex, index) => {
+  const toggleSubMenu = (parentIndex) => {
     const menuItems = [...navState];
     const menuItem = menuItems[parentIndex];
     menuItem.showSubMenus = !menuItem.showSubMenus;
     setNavState(menuItems);
   };
-
   const renderSubMenu = (subMenus, parentIndex) => {
     return (
-      <ul className={`${styles.navContainerSubItems} ${styles.show}`}>
+      <ul
+        className={`${styles.navContainerSubItems} ${styles.show}`}
+        onMouseLeave={() => toggleSubMenu(parentIndex)}
+      >
         {subMenus.map((subMenuItem, index) => {
           return (
             <li key={index} className={styles.navContainerSubitem}>
               <Link
                 className={globalStyles.link}
                 to={subMenuItem.url}
-                onClick={(event) =>
-                  handleSubMenuItemClick(event, parentIndex, index)
-                }
+                onClick={() => toggleSubMenu(parentIndex)}
               >
                 <span>{subMenuItem.name}</span>
               </Link>

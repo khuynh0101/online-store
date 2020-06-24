@@ -11,11 +11,11 @@ const App = () => {
     <>
       <Router>
         <NavStateProvider>
-          <CartStateProvider>
-            <ProductsStateProvider>
+          <ProductsStateProvider>
+            <CartStateProvider>
               <Layout />
-            </ProductsStateProvider>
-          </CartStateProvider>
+            </CartStateProvider>
+          </ProductsStateProvider>
         </NavStateProvider>
       </Router>
     </>
