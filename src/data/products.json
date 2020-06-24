@@ -1,154 +1,173 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "type": "Bonsai",
     "name": "Bonsai Tree",
     "url": "/assets/images/plants/bonsai_1.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": true,
     "keywords": "bonsai tree green curve small"
   },
   {
-    "id": "2",
+    "id": 2,
     "type": "Bonsai",
     "name": "Bonsai Tree",
     "url": "/assets/images/plants/bonsai_2.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "bonsai tree green curve small"
   },
   {
-    "id": "3",
+    "id": 3,
     "type": "Bonsai",
     "name": "Bonsai Tree",
     "url": "/assets/images/plants/bonsai_3.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "bonsai tree green curve small"
   },
   {
-    "id": "4",
+    "id": 4,
     "type": "Bonsai",
     "name": "Bonsai Tree",
     "url": "/assets/images/plants/bonsai_4.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "bonsai tree green curve small"
   },
   {
-    "id": "5",
+    "id": 5,
     "type": "Bonsai",
     "name": "Bonsai Tree",
     "url": "/assets/images/plants/bonsai_5.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "bonsai tree green curve small"
   },
   {
-    "id": "6",
+    "id": 6,
     "type": "Bonsai",
     "name": "Bonsai Tree",
     "url": "/assets/images/plants/bonsai_6.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "bonsai tree green curve small"
   },
   {
-    "id": "7",
+    "id": 7,
     "type": "Hanging",
     "name": "Hanging Plants",
     "url": "/assets/images/plants/hanging_1.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "hanging ceiling tree green small"
   },
   {
-    "id": "8",
+    "id": 8,
     "type": "Hanging",
     "name": "Hanging Plants",
     "url": "/assets/images/plants/hanging_2.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "hanging ceiling tree green small"
   },
   {
-    "id": "9",
+    "id": 9,
     "type": "Hanging",
     "name": "Hanging Plants",
     "url": "/assets/images/plants/hanging_3.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "hanging ceiling tree green small"
   },
   {
-    "id": "10",
+    "id": 10,
     "type": "Palm",
     "name": "Potted Palm Tree",
     "url": "/assets/images/plants/palm_1.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": true,
     "keywords": "potted pot palm tree green curve small"
   },
   {
-    "id": "11",
+    "id": 11,
     "type": "Palm",
     "name": "Potted Palm Tree",
     "url": "/assets/images/plants/palm_2.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "potted pot palm tree green curve small"
   },
   {
-    "id": "12",
+    "id": 12,
     "type": "Palm",
     "name": "Potted Palm Tree",
     "url": "/assets/images/plants/palm_3.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "potted pot palm tree green curve small"
   },
   {
-    "id": "13",
+    "id": 13,
     "type": "Palm",
     "name": "Potted Palm Tree",
     "url": "/assets/images/plants/palm_4.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "potted pot palm tree green curve small"
   },
   {
-    "id": "14",
+    "id": 14,
     "type": "Succulent",
     "name": "Succulent",
     "url": "/assets/images/plants/succulent_1.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": true,
     "keywords": "desset small potted pot cactus succulent"
   },
   {
-    "id": "15",
+    "id": 15,
     "type": "Succulent",
     "name": "Succulent",
     "url": "/assets/images/plants/succulent_2.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "desset small potted pot cactus succulent"
   },
   {
-    "id": "16",
+    "id": 16,
     "type": "Succulent",
     "name": "Succulent",
     "url": "/assets/images/plants/succulent_3.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "desset small potted pot cactus succulent"
   },
   {
-    "id": "17",
+    "id": 17,
     "type": "Succulent",
     "name": "Succulent",
     "url": "/assets/images/plants/succulent_4.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "desset small potted pot cactus succulent"
   },
   {
-    "id": "18",
+    "id": 18,
     "type": "Succulent",
     "name": "Succulent",
     "url": "/assets/images/plants/succulent_5.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "desset small potted pot cactus succulent"
   },
   {
-    "id": "19",
+    "id": 19,
     "type": "Succulent",
     "name": "Succulent",
     "url": "/assets/images/plants/succulent_6.png",
-    "price": "$35",
+    "price": 35,
+    "recommended": false,
     "keywords": "desset small potted pot cactus succulent"
   }
 ]

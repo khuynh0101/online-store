@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './nav.module.css';
 import globalStyles from '../../app.module.css';
 import { SearchTextBox } from '../Search/SearchTextBox';
@@ -28,7 +28,6 @@ export const Nav = () => {
     const menuItems = [...navState];
     const menuItem = menuItems[parentIndex];
     menuItem.showSubMenus = !menuItem.showSubMenus;
-    const subMenuItems = menuItem.subMenus;
     setNavState(menuItems);
   };
 

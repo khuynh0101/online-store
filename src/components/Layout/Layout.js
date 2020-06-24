@@ -4,7 +4,7 @@ import { Nav } from '../Nav/Nav';
 import { Home } from '../Home/Home';
 import { Contact } from '../Contact/Contact';
 import { Plants } from '../Plants/Plants';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
   return (

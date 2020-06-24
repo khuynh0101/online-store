@@ -19,13 +19,31 @@
   color: #184d47;
 }
 
-.button {
+.linkButton {
   text-transform: none;
   padding: 0.5rem 2rem;
   background: #57b68a;
   text-align: center;
   font-size: 0.8rem;
   color: white;
+}
+.linkButton:active {
+  position: relative;
+  top: 1px;
+}
+.button {
+  text-decoration: none;
+  border: none;
+  background: #57b68a;
+  font-size: 0.8rem;
+  color: white;
+  outline: 0;
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 0.3rem 1rem;
+}
+.button:hover {
+  color: #184d47;
 }
 .button:active {
   position: relative;
