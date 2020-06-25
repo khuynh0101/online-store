@@ -17,6 +17,9 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.shoppingBag > li {
+  line-height: 0;
+}
 .shoppingBag:not(:last-child) {
   border-bottom: 0.5px solid #3b9288;
 }
@@ -40,6 +43,7 @@
 .itemCounterFlex {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .textLarge {
   font-size: 1.5rem;

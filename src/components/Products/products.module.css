@@ -17,7 +17,7 @@
 .productFlex {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
 .productBackgroundGradient {
   background: linear-gradient(#fff, #f2f2f2);
@@ -43,7 +43,25 @@
   animation: fade 0.3s;
   box-shadow: 0px 0px 2px #96bb7c;
 }
-
+.productName {
+  width: 100%;
+}
+.wishlist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.svgImg {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+.svgAction {
+  fill: #3b9288;
+}
+.selected {
+  fill: rgb(167, 20, 20);
+}
 @keyframes fade {
   0% {
     opacity: 0;
@@ -59,6 +77,10 @@
   }
   .productsContentGrid {
     grid-template-columns: 1fr 1fr;
+  }
+  .svgImg {
+    height: 24px;
+    width: 24px;
   }
 }
 @media (min-width: 1024px) {

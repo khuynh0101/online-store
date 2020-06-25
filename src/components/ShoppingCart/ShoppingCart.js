@@ -108,7 +108,7 @@ export const ShoppingCart = () => {
                       <div
                         className={`${globalStyles.textMedium} ${styles.counter}`}
                       >
-                        {cartItem.numItem}
+                        <span>{cartItem.numItem}</span>
                       </div>
                       <a
                         className={globalStyles.link}
