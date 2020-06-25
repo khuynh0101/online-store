@@ -6,11 +6,11 @@ import { useProductsState } from '../Providers/ProductsState';
 
 export const WishList = () => {
   const { getWishList } = useWishListStore();
-  const [productItems] = useProductsState();
+  const { getProducts } = useProductsState();
 
   let wishListProducts = [];
   getWishList().map((wishListItem) => {
-    const product = productItems.filter((p) => p.id === wishListItem);
+    const product = getProducts().filter((p) => p.id === wishListItem);
     if (product && product.length > 0) wishListProducts.push(product[0]);
   });
 

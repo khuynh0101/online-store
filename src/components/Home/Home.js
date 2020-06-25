@@ -6,8 +6,8 @@ import { Products } from '../Products/Products';
 import { useProductsState } from '../Providers/ProductsState';
 
 export const Home = () => {
-  const [products] = useProductsState();
-  const filteredProducts = products.filter((p) => p.recommended);
+  const { getProducts } = useProductsState();
+  const filteredProducts = getProducts().filter((p) => p.recommended);
   return (
     <>
       <section className={styles.heroGrid}>

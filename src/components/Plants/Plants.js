@@ -4,10 +4,10 @@ import { Products } from '../Products/Products';
 import { useProductsState } from '../Providers/ProductsState';
 
 export const Plants = () => {
-  const [products] = useProductsState();
+  const { getProducts } = useProductsState();
+  const products = getProducts();
   let productsByCat = null;
   const { name } = useParams();
-
   if (name)
     productsByCat = products.filter((p) => p.type.toLowerCase() === name);
   if (productsByCat.length == 0) productsByCat = products;

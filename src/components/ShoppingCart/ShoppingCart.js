@@ -5,7 +5,7 @@ import { useProductsState } from '../Providers/ProductsState';
 import { useCartState } from '../Providers/CartState';
 
 export const ShoppingCart = () => {
-  const [productItems] = useProductsState();
+  const { getProducts } = useProductsState();
   const {
     cartItems,
     removeItem,
@@ -14,8 +14,8 @@ export const ShoppingCart = () => {
   } = useCartState();
 
   const getProduct = (id) => {
-    const products = productItems.filter((p) => p.id === id);
-    if (products && products.length > 0) return products[0];
+    const prod = getProducts().filter((p) => p.id === id);
+    if (prod && prod.length > 0) return prod[0];
     return null;
   };
 

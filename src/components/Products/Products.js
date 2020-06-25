@@ -6,7 +6,7 @@ import { useCartState } from '../Providers/CartState';
 import { useWishListStore } from '../hooks/useWishListStore';
 
 export const Products = ({ heading, products }) => {
-  const [productItems, setProductItems] = useProductsState();
+  const { selectProductItem, deSelectProductItem } = useProductsState();
   const { toggleToCart, inCart } = useCartState();
 
   const {
@@ -21,31 +21,6 @@ export const Products = ({ heading, products }) => {
     else addWishListItem(id);
   };
 
-  const handleMouseEnter = (id) => {
-    let { items, item } = getItem(productItems, id);
-    item.isSelected = true;
-    setProductItems(items);
-  };
-  const handleMouseOut = (id) => {
-    let { items, item } = getItem(productItems, id);
-    item.isSelected = false;
-    setProductItems(items);
-  };
-
-  const handleToggleToCart = (id) => {
-    toggleToCart(id);
-  };
-
-  const getItem = (itemList, id) => {
-    const items = [...itemList];
-    const index = items.findIndex((p) => p.id === id);
-    const itemObj = items.filter((p) => p.id === id);
-    let item = null;
-    if (itemObj && itemObj.length > 0) {
-      item = itemObj[0];
-    }
-    return { items, item, index };
-  };
   return (
     <section className={styles.productsContainer}>
       <p
@@ -83,8 +58,8 @@ export const Products = ({ heading, products }) => {
               </p>
               <div
                 className={styles.productBackgroundGradient}
-                onMouseEnter={() => handleMouseEnter(product.id)}
-                onMouseLeave={() => handleMouseOut(product.id)}
+                onMouseEnter={() => selectProductItem(product.id)}
+                onMouseLeave={() => deSelectProductItem(product.id)}
               >
                 <img
                   alt={product.name}
@@ -97,7 +72,7 @@ export const Products = ({ heading, products }) => {
                       <button
                         className={globalStyles.button}
                         type='button'
-                        onClick={() => handleToggleToCart(product.id)}
+                        onClick={() => toggleToCart(product.id)}
                       >
                         {inCart(product.id) && `Remove from cart`}
                         {!inCart(product.id) && `Add to cart`}
