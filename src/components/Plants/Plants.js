@@ -4,7 +4,7 @@ import { Products } from '../Products/Products';
 import { useProductsState } from '../Providers/ProductsState';
 
 export const Plants = () => {
-  const [products, setProducts] = useProductsState();
+  const [products] = useProductsState();
   let productsByCat = null;
   const { name } = useParams();
 

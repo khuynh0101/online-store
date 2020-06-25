@@ -7,7 +7,7 @@ import { useWishListStore } from '../hooks/useWishListStore';
 
 export const Products = ({ heading, products }) => {
   const [productItems, setProductItems] = useProductsState();
-  const [cartItems, setCartItems] = useCartState();
+  const { toggleToCart, inCart } = useCartState();
 
   const {
     getWishList,
@@ -22,31 +22,20 @@ export const Products = ({ heading, products }) => {
   };
 
   const handleMouseEnter = (id) => {
-    //const { product, productList } = getProduct(id);
-    let { item, items } = getItem(productItems, id);
+    let { items, item } = getItem(productItems, id);
     item.isSelected = true;
     setProductItems(items);
   };
   const handleMouseOut = (id) => {
-    //const { product, productList } = getProduct(id);
-    let { item, items } = getItem(productItems, id);
+    let { items, item } = getItem(productItems, id);
     item.isSelected = false;
     setProductItems(items);
   };
 
   const handleToggleToCart = (id) => {
-    let { item, items, index } = getItem(cartItems, id);
-    if (item) {
-      items.splice(index, 1);
-    } else {
-      item = {
-        id: id,
-        numItem: 1,
-      };
-      items.push(item);
-    }
-    setCartItems(items);
+    toggleToCart(id);
   };
+
   const getItem = (itemList, id) => {
     const items = [...itemList];
     const index = items.findIndex((p) => p.id === id);
@@ -55,11 +44,7 @@ export const Products = ({ heading, products }) => {
     if (itemObj && itemObj.length > 0) {
       item = itemObj[0];
     }
-    return { item, items, index };
-  };
-  const isInCart = (product) => {
-    let { item, items, index } = getItem(cartItems, product.id);
-    return index > -1;
+    return { items, item, index };
   };
   return (
     <section className={styles.productsContainer}>
@@ -114,10 +99,8 @@ export const Products = ({ heading, products }) => {
                         type='button'
                         onClick={() => handleToggleToCart(product.id)}
                       >
-                        {isInCart(product) && `Remove from cart`}
-                        {!isInCart(product) && `Add to cart`}
-                        {/* {product.addedToCart && `Remove from cart`}
-                        {!product.addedToCart && `Add to cart`} */}
+                        {inCart(product.id) && `Remove from cart`}
+                        {!inCart(product.id) && `Add to cart`}
                       </button>
                     </div>
                   </>

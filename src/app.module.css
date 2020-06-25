@@ -1,3 +1,9 @@
+.container {
+  padding: 1rem 0 0 0;
+}
+.paragraphLeftPadding {
+  padding-left: 1rem;
+}
 .link {
   color: #3b9288;
 }

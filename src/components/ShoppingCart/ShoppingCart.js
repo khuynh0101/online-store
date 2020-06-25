@@ -5,8 +5,13 @@ import { useProductsState } from '../Providers/ProductsState';
 import { useCartState } from '../Providers/CartState';
 
 export const ShoppingCart = () => {
-  const [productItems, setProductItems] = useProductsState();
-  const [cartItems, setCartItems] = useCartState();
+  const [productItems] = useProductsState();
+  const {
+    cartItems,
+    removeItem,
+    increaseCount,
+    decreaseCount,
+  } = useCartState();
 
   const getProduct = (id) => {
     const products = productItems.filter((p) => p.id === id);
@@ -14,34 +19,10 @@ export const ShoppingCart = () => {
     return null;
   };
 
-  const removeItem = (index) => {
-    const items = [...cartItems];
-    const item = items.splice(index, 1);
-    setCartItems(items);
-  };
-
-  const updateCount = (index, increase) => {
-    const items = [...cartItems];
-    const item = items[index];
-    if (item) {
-      if (increase) {
-        item.numItem++;
-        item.price = item.numItem * item.price;
-      }
-      if (!increase) {
-        if (item.numItem >= 1) {
-          item.numItem--;
-          item.price = item.numItem * item.price;
-        }
-      }
-      setCartItems(items);
-    }
-  };
-
   return (
-    <section className={styles.container}>
+    <section className={globalStyles.container}>
       <p
-        className={`${styles.paragraphLeftPadding} ${globalStyles.textMedium}`}
+        className={`${globalStyles.paragraphLeftPadding} ${globalStyles.textMedium}`}
       >
         Shopping Bag
       </p>
@@ -91,7 +72,7 @@ export const ShoppingCart = () => {
                       <a
                         className={globalStyles.link}
                         href='#'
-                        onClick={() => updateCount(index, true)}
+                        onClick={() => increaseCount(cartItem.id)}
                       >
                         <svg
                           className={styles.svgImg}
@@ -113,7 +94,7 @@ export const ShoppingCart = () => {
                       <a
                         className={globalStyles.link}
                         href='#'
-                        onClick={() => updateCount(index, false)}
+                        onClick={() => decreaseCount(cartItem.id)}
                       >
                         <svg
                           className={styles.svgImg}

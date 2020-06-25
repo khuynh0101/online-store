@@ -4,6 +4,7 @@ import { Header } from '../Header/Header';
 import { Home } from '../Home/Home';
 import { Contact } from '../Contact/Contact';
 import { Plants } from '../Plants/Plants';
+import { WishList } from '../WishList/WishList';
 import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
 import { Route } from 'react-router-dom';
 
@@ -22,7 +23,10 @@ export const Layout = ({ menu, onMenuItemClick }) => {
         </div>
       </Route>
       <Route path='/wishlist'>
-        <div className={styles.plantContainer}> </div>
+        <div className={styles.plantContainer}>
+          {' '}
+          <WishList />{' '}
+        </div>
       </Route>
       <Route path='/search/:term'>
         <div className={styles.plantContainer}></div>
