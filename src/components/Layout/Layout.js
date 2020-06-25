@@ -35,6 +35,12 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       <Route path='/' exact>
         <Home />
       </Route>
+      <Route path='/home' exact>
+        <Home />
+      </Route>
+      <Route path='/index' exact>
+        <Home />
+      </Route>
     </>
   );
 };

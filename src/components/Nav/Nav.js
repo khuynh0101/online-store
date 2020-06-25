@@ -1,35 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './nav.module.css';
 import globalStyles from '../../app.module.css';
+import { useParams } from 'react-router-dom';
 import { SearchTextBox } from '../Search/SearchTextBox';
 import { Cart } from '../ShoppingCart/Cart';
 import { Link } from 'react-router-dom';
-import { useNavState } from '../../components/Providers/NavState';
+import { useNavStore } from '../../components/hooks/useNavStore';
 
 export const Nav = () => {
-  const [navState, setNavState] = useNavState();
+  const { getMenu, selectMenuItem, toggleSubMenu } = useNavStore();
+  const { menuName } = useParams();
+  //set the nav selected menu item only if menuName exists
+  useEffect(() => {
+    if (menuName) {
+      let menuItems = getMenu();
+      menuItems.forEach((menuItem, idx) => {
+        if (menuItem.name.toLowerCase() === menuName.trim()) {
+          selectMenuItem(idx, false);
+        }
+      });
+    }
+  }, []);
 
-  const handleMenuItemClick = (event, index) => {
-    let menuItems = [...navState];
-    menuItems.forEach((menuItem, idx) => {
-      if (idx === index) {
-        menuItem.isActive = true;
-        if (menuItem.subMenus) menuItem.showSubMenus = !menuItem.showSubMenus;
-      } else {
-        menuItems[idx].isActive = false;
-        menuItem.showSubMenus = false;
-      }
-    });
-    menuItems[index].isActive = true;
-    setNavState(menuItems);
-  };
-
-  const toggleSubMenu = (parentIndex) => {
-    const menuItems = [...navState];
-    const menuItem = menuItems[parentIndex];
-    menuItem.showSubMenus = !menuItem.showSubMenus;
-    setNavState(menuItems);
-  };
   const renderSubMenu = (subMenus, parentIndex) => {
     return (
       <ul
@@ -55,7 +47,7 @@ export const Nav = () => {
   return (
     <nav className={styles.navContainer}>
       <ul className={styles.navContainerItems}>
-        {navState.map((menuItem, index) => {
+        {getMenu().map((menuItem, index) => {
           let svgArrowClassName = styles.svgArrow;
           let liClassName = styles.navContainerItem;
           let selectedClassName = menuItem.isActive
@@ -75,7 +67,7 @@ export const Nav = () => {
               <Link
                 className={selectedClassName}
                 to={menuItem.url}
-                onClick={(event) => handleMenuItemClick(event, index)}
+                onClick={(event) => selectMenuItem(index)}
               >
                 <span>{menuItem.name}</span>
                 {menuItem.subMenus && (

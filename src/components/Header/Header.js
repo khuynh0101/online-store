@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './header.module.css';
 import { Nav } from '../Nav/Nav';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 export const Header = () => {
   return (
@@ -11,7 +11,15 @@ export const Header = () => {
           Plant Decor
         </Link>
       </h1>
-      <Nav />
+      <Route path='/:menuName/:submenuName'>
+        <Nav />
+      </Route>
+      <Route path='/:menuName' exact>
+        <Nav />
+      </Route>
+      <Route path='/' exact>
+        <Nav />
+      </Route>
     </section>
   );
 };

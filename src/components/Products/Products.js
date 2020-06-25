@@ -3,13 +3,17 @@ import styles from './products.module.css';
 import globalStyles from '../../app.module.css';
 import { useProductsState } from '../Providers/ProductsState';
 import { useCartState } from '../Providers/CartState';
-import { useWishList } from '../hooks/useWishListState';
+import { useWishListStore } from '../hooks/useWishListStore';
 
 export const Products = ({ heading, products }) => {
   const [productItems, setProductItems] = useProductsState();
   const [cartItems, setCartItems] = useCartState();
 
-  const { getWishList, addWishListItem, removeWishListItem } = useWishList();
+  const {
+    getWishList,
+    addWishListItem,
+    removeWishListItem,
+  } = useWishListStore();
   const wishListItems = getWishList();
 
   const handleWishlistClick = (id) => {
