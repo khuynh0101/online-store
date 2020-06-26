@@ -14,7 +14,7 @@ export const CartStateProvider = ({ children }) => {
     storage.updateCart(cartItems);
   };
 
-  const getTotal = () => {
+  const getTotalItems = () => {
     return cartItems.length;
   };
 
@@ -78,7 +78,7 @@ export const CartStateProvider = ({ children }) => {
     inCart,
     increaseCount,
     decreaseCount,
-    getTotal,
+    getTotalItems,
   };
 
   return <CartStateContext.Provider value={value} children={children} />;

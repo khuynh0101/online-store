@@ -66,20 +66,16 @@ export const Products = ({ heading, products }) => {
                   className={styles.imgPlant}
                   src={product.url}
                 />
-                {product.isSelected && (
-                  <>
-                    <div className={styles.addCartButton}>
-                      <button
-                        className={globalStyles.button}
-                        type='button'
-                        onClick={() => toggleToCart(product.id)}
-                      >
-                        {inCart(product.id) && `Remove from cart`}
-                        {!inCart(product.id) && `Add to cart`}
-                      </button>
-                    </div>
-                  </>
-                )}
+              </div>
+              <div>
+                <button
+                  className={globalStyles.button}
+                  type='button'
+                  onClick={() => toggleToCart(product.id)}
+                >
+                  {inCart(product.id) && `Remove from cart`}
+                  {!inCart(product.id) && `Add to cart`}
+                </button>
               </div>
             </div>
           );

@@ -9,11 +9,9 @@
   padding-right: 1rem; /*fixed this*/
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.shoppingBag:not(:last-child) {
   border-bottom: 0.5px solid #3b9288;
 }
+
 .linkSvgImg {
   position: relative;
   top: 3px;
@@ -58,22 +56,36 @@
 .imgPlantGradient {
   background: linear-gradient(#fff, #f2f2f2);
 }
+.totalContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+.totalText,
+.totalPrice {
+  padding-right: 1rem;
+}
 /* shopping cart */
 
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-
   .shoppingBag {
     padding-right: 0;
     margin: auto;
     max-width: 70%;
   }
-
   .svgImg {
     height: 24px;
     width: 24px;
+  }
+  .totalContainer {
+    max-width: 70%;
+    margin: auto;
+    justify-content: flex-end;
+  }
+  .totalPrice {
+    padding-right: 0;
   }
 }
 /* shopping cart */

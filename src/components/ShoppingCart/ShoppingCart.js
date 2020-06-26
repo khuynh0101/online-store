@@ -3,6 +3,7 @@ import styles from './shoppingCart.module.css';
 import globalStyles from '../../app.module.css';
 import { useProductsState } from '../Providers/ProductsState';
 import { useCartState } from '../Providers/CartState';
+import { useGetTotalCost } from '../hooks/useGetTotalCost';
 
 export const ShoppingCart = () => {
   const { getProducts } = useProductsState();
@@ -18,7 +19,8 @@ export const ShoppingCart = () => {
     if (prod && prod.length > 0) return prod[0];
     return null;
   };
-
+  const totalPrice = useGetTotalCost();
+  console.log(totalPrice);
   return (
     <section className={globalStyles.container}>
       <p
@@ -118,6 +120,13 @@ export const ShoppingCart = () => {
             );
           }
         })}
+        <div className={`${styles.totalContainer} ${styles.textMedium}`}>
+          <p className={styles.totalText}>Total:</p>
+          <p className={styles.totalPrice}>${totalPrice}</p>
+        </div>
+        <div>
+          <button className={globalStyles.button}>Check out</button>
+        </div>
       </div>
     </section>
   );

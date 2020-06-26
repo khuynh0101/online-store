@@ -28,8 +28,16 @@ export const ProductsStateProvider = ({ children }) => {
     }
     return { items, item, index };
   };
+  const getProductsById = (id) => {
+    const products = getProducts().filter((p) => p.id === id);
+    if (products && products.length > 0) {
+      return products[0];
+    }
+    return null;
+  };
   const value = {
     getProducts,
+    getProductsById,
     selectProductItem,
     deSelectProductItem,
   };
