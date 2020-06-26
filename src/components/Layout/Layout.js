@@ -5,6 +5,7 @@ import { Home } from '../Home/Home';
 import { Contact } from '../Contact/Contact';
 import { Plants } from '../Plants/Plants';
 import { WishList } from '../WishList/WishList';
+import { Search } from '../Search/Search';
 import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
 import { Route } from 'react-router-dom';
 
@@ -29,12 +30,13 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       </Route>
       <Route path='/wishlist'>
         <div className={styles.plantContainer}>
-          {' '}
-          <WishList />{' '}
+          <WishList />
         </div>
       </Route>
       <Route path='/search/:term'>
-        <div className={styles.plantContainer}></div>
+        <div className={styles.plantContainer}>
+          <Search />
+        </div>
       </Route>
       <Route path='/cart'>
         <div className={styles.plantContainer}>

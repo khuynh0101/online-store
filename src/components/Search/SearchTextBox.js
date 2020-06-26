@@ -58,6 +58,7 @@ export const SearchTextBox = () => {
   const closeSearch = () => {
     setSearchProp('', false);
     setSuggestion([]);
+    setCursor(-1);
   };
 
   const setSearchProp = (text, isSearchActive) => {
@@ -69,6 +70,7 @@ export const SearchTextBox = () => {
   };
 
   const handleSearchSubmit = () => {
+    console.log('d ', search.text);
     history.push(`/search/${search.text}`);
     closeSearch();
   };
