@@ -17,6 +17,11 @@ export const Layout = ({ menu, onMenuItemClick }) => {
           <Plants />
         </div>
       </Route>
+      <Route path='/plants' exact>
+        <div className={styles.plantContainer}>
+          <Plants />
+        </div>
+      </Route>
       <Route path='/contact'>
         <div className={styles.plantContainer}>
           <Contact />

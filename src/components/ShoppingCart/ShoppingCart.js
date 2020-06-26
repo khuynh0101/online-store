@@ -43,7 +43,7 @@ export const ShoppingCart = () => {
                   <ul key={index} className={styles.shoppingBag}>
                     <li>
                       <a
-                        className={globalStyles.link}
+                        className={`${globalStyles.link} ${styles.linkSvgImg}`}
                         href='#'
                         onClick={() => removeItem(index)}
                       >
@@ -70,7 +70,7 @@ export const ShoppingCart = () => {
                     </li>
                     <li className={styles.itemCounterFlex}>
                       <a
-                        className={globalStyles.link}
+                        className={`${globalStyles.link} ${styles.linkSvgImg}`}
                         href='#'
                         onClick={() => increaseCount(cartItem.id)}
                       >
@@ -92,7 +92,7 @@ export const ShoppingCart = () => {
                         <span>{cartItem.numItem}</span>
                       </div>
                       <a
-                        className={globalStyles.link}
+                        className={`${globalStyles.link} ${styles.linkSvgImg}`}
                         href='#'
                         onClick={() => decreaseCount(cartItem.id)}
                       >

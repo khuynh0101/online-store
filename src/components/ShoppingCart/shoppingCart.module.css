@@ -10,11 +10,13 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.shoppingBag > li {
-  line-height: 0;
-}
+
 .shoppingBag:not(:last-child) {
   border-bottom: 0.5px solid #3b9288;
+}
+.linkSvgImg {
+  position: relative;
+  top: 3px;
 }
 .svgImg {
   height: 20px;

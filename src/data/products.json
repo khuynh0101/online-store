@@ -6,7 +6,7 @@
     "url": "/assets/images/plants/bonsai_1.png",
     "price": 35,
     "recommended": true,
-    "keywords": "bonsai tree green curve small"
+    "keywords": "bonsai tree green curve small japanese"
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "url": "/assets/images/plants/bonsai_2.png",
     "price": 35,
     "recommended": false,
-    "keywords": "bonsai tree green curve small"
+    "keywords": "bonsai tree green curve small japanese"
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "url": "/assets/images/plants/bonsai_3.png",
     "price": 35,
     "recommended": false,
-    "keywords": "bonsai tree green curve small"
+    "keywords": "bonsai tree green curve small japanese"
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "url": "/assets/images/plants/bonsai_4.png",
     "price": 35,
     "recommended": false,
-    "keywords": "bonsai tree green curve small"
+    "keywords": "bonsai tree green curve small japanese"
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "url": "/assets/images/plants/bonsai_5.png",
     "price": 35,
     "recommended": false,
-    "keywords": "bonsai tree green curve small"
+    "keywords": "bonsai tree green curve small japanese"
   },
   {
     "id": 6,
@@ -51,7 +51,7 @@
     "url": "/assets/images/plants/bonsai_6.png",
     "price": 35,
     "recommended": false,
-    "keywords": "bonsai tree green curve small"
+    "keywords": "bonsai tree green curve small japanese"
   },
   {
     "id": 7,

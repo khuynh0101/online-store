@@ -6,11 +6,12 @@ import { useProductsState } from '../Providers/ProductsState';
 export const Plants = () => {
   const { getProducts } = useProductsState();
   const products = getProducts();
-  let productsByCat = null;
+  let productsByCat = products;
   const { name } = useParams();
-  if (name)
+  if (name) {
     productsByCat = products.filter((p) => p.type.toLowerCase() === name);
-  if (productsByCat.length == 0) productsByCat = products;
+    if (productsByCat.length == 0) productsByCat = products;
+  }
   return (
     <Products heading='Check out all of our plants' products={productsByCat} />
   );
