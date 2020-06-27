@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './shoppingCart.module.css';
 import globalStyles from '../../app.module.css';
+import { useHistory } from 'react-router-dom';
 import { useProductsState } from '../Providers/ProductsState';
 import { useCartState } from '../Providers/CartState';
 import { useGetTotalCost } from '../hooks/useGetTotalCost';
@@ -19,8 +20,8 @@ export const ShoppingCart = () => {
     if (prod && prod.length > 0) return prod[0];
     return null;
   };
+  const history = useHistory();
   const totalPrice = useGetTotalCost();
-  console.log(totalPrice);
   return (
     <section className={globalStyles.container}>
       <p
@@ -125,7 +126,14 @@ export const ShoppingCart = () => {
           <p className={styles.totalPrice}>${totalPrice}</p>
         </div>
         <div>
-          <button className={globalStyles.button}>Check out</button>
+          <button
+            className={globalStyles.button}
+            onClick={() => {
+              history.push('/checkout/');
+            }}
+          >
+            Check out
+          </button>
         </div>
       </div>
     </section>

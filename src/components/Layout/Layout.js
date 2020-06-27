@@ -7,6 +7,7 @@ import { Plants } from '../Plants/Plants';
 import { WishList } from '../WishList/WishList';
 import { Search } from '../Search/Search';
 import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
+import { Checkout } from '../ShoppingCart/Checkout';
 import { Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
@@ -41,6 +42,11 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       <Route path='/cart'>
         <div className={styles.plantContainer}>
           <ShoppingCart />
+        </div>
+      </Route>
+      <Route path='/checkout'>
+        <div className={styles.plantContainer}>
+          <Checkout />
         </div>
       </Route>
       <Route path='/' exact>

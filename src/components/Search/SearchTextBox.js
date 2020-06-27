@@ -70,7 +70,6 @@ export const SearchTextBox = () => {
   };
 
   const handleSearchSubmit = () => {
-    console.log('d ', search.text);
     history.push(`/search/${search.text}`);
     closeSearch();
   };
