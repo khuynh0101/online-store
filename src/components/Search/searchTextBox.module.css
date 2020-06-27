@@ -11,17 +11,17 @@
   right: 4px;
   top: 8px;
 }
-.inputSearch {
-  border: 1px #3b9288 solid;
+.input {
+  /* border: 1px #3b9288 solid;
   display: block;
   width: 100%;
   height: 34px;
   color: #184d47;
   padding-left: 0.2rem;
-  font-size: 0.8rem;
+  font-size: 0.8rem; */
   text-transform: lowercase;
 }
-.inputSearch:focus {
+.input:focus {
   border: 1px #184d47 solid;
 }
 .svgImg {
@@ -79,7 +79,7 @@
     right: 4px;
     top: 5px;
   }
-  .inputSearch {
+  .input {
     position: unset;
     width: 86px;
   }
@@ -87,7 +87,7 @@
     width: 330px;
     transition: 0.5s;
   } */
-  .active > .inputSearch {
+  .active > .input {
     width: 330px;
     transition: 0.3s;
   }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './searchTextBox.module.css';
+import globalStyles from '../../app.module.css';
 import { useHistory } from 'react-router-dom';
 import products from '../../data/products.json';
 
@@ -99,7 +100,7 @@ export const SearchTextBox = () => {
       )}
       <input
         value={search.text}
-        className={styles.inputSearch}
+        className={`${globalStyles.input} ${styles.input}`}
         type='text'
         placeholder='Search'
         onChange={handleOnChange}

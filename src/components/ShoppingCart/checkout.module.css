@@ -1,6 +1,9 @@
 .container {
+  margin: auto;
+  max-width: 90%;
+}
+.billingOrdercontainer {
   color: #184d47;
-  padding: 0 1rem 0 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +18,6 @@
   grid-template-rows: 1fr;
   padding-bottom: 0.5rem;
   color: #3b9288;
-  /* border-bottom: 1px solid #184d47; */
 }
 .orderAmount {
   justify-self: center;
@@ -36,31 +38,49 @@
 .totalAmount {
   padding-right: 1rem;
 }
-.input {
-  border: 1px #3b9288 solid;
-  display: block;
-  width: 100%;
-  height: 34px;
+.editButton {
+  text-align: end;
+}
+.placeOrderButton {
+  text-align: left;
+}
+.checkbox {
+  background-color: #fff;
+  border: 1px solid #3b9288;
+  padding: 10px;
+  display: inline-block;
+  -webkit-appearance: none;
+  position: relative;
+  width: 24px;
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+.checkbox:checked {
   color: #184d47;
-  font-size: 0.8rem;
+}
+.checkbox:checked:after {
+  content: 'X';
+  font-size: 16px;
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  color: #184d47;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-  .container {
+  .billingOrdercontainer {
     flex-direction: row-reverse;
     justify-content: space-between;
-    margin: auto;
-    max-width: 90%;
-  }
-  .input {
-    border: 1px #3b9288 solid;
-    display: block;
-    width: 350px;
   }
 }
-
 @media (min-width: 1024px) {
   html {
     font-size: 18px;

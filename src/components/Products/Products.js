@@ -23,11 +23,7 @@ export const Products = ({ heading, products }) => {
 
   return (
     <section className={styles.productsContainer}>
-      <p
-        className={`${styles.paragraphLeftPadding} ${globalStyles.textMedium}`}
-      >
-        {heading}
-      </p>
+      <p className={globalStyles.textMedium}>{heading}</p>
       <div className={styles.productsContentGrid}>
         {products.map((product, index) => {
           const wishListSelectedClassName =

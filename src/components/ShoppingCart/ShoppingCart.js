@@ -24,18 +24,10 @@ export const ShoppingCart = () => {
   const totalPrice = useGetTotalCost();
   return (
     <section className={globalStyles.container}>
-      <p
-        className={`${globalStyles.paragraphLeftPadding} ${globalStyles.textMedium}`}
-      >
-        Shopping Bag
-      </p>
+      <p className={globalStyles.textMedium}>Shopping Bag</p>
       <div className={styles.shoppingBagContainer}>
         {cartItems.length === 0 && (
-          <p
-            className={`${styles.paragraphLeftPadding} ${globalStyles.textMedium}`}
-          >
-            Your bag is empty.
-          </p>
+          <p className={globalStyles.textMedium}>Your bag is empty.</p>
         )}
         {cartItems.map((cartItem, index) => {
           const product = getProduct(cartItem.id);
