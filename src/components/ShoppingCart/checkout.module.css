@@ -1,6 +1,6 @@
 .container {
   margin: auto;
-  max-width: 90%;
+  width: 92%;
 }
 .billingOrdercontainer {
   color: #184d47;
@@ -42,7 +42,8 @@
   text-align: end;
 }
 .placeOrderButton {
-  text-align: left;
+  text-align: center;
+  margin-top: 1rem;
 }
 .checkbox {
   background-color: #fff;
@@ -80,6 +81,9 @@
     flex-direction: row-reverse;
     justify-content: space-between;
   }
+  .placeOrderButton {
+    text-align: left;
+  }
 }
 @media (min-width: 1024px) {
   html {
@@ -89,5 +93,9 @@
 @media (min-width: 2048px) {
   html {
     font-size: 20px;
+  }
+  .container {
+    margin: auto;
+    max-width: 60%;
   }
 }

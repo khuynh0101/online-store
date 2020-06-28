@@ -3,3 +3,33 @@
   padding-left: 0.3rem;
   color: #3b9288;
 }
+.textboxErrorContainer {
+  position: relative;
+  /* width: fit-content; */
+}
+
+.errorImg {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  fill: red;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  .textboxErrorContainer {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+@media (min-width: 2048px) {
+  html {
+    font-size: 20px;
+  }
+}

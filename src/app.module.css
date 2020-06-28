@@ -61,6 +61,12 @@
   position: relative;
   top: 1px;
 }
+.button:disabled {
+  opacity: 0.7;
+  cursor: auto;
+  background: #b9b9b9;
+  color: white;
+}
 .input {
   border: 1px #3b9288 solid;
   display: block;
