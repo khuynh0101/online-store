@@ -13,12 +13,14 @@ import { useGetTotalCost } from '../hooks/useGetTotalCost';
 
 export const Checkout = () => {
   const history = useHistory();
+  const [enableOrderButton, setEnableOrderButton] = useState(false);
   const [errors, setErrors] = useState({
     billing: {
       firstName: false,
       lastName: false,
       address: false,
       city: false,
+      state: false,
       zipCode: false,
       phoneNumber: false,
     },
@@ -27,6 +29,7 @@ export const Checkout = () => {
       lastName: false,
       address: false,
       city: false,
+      state: false,
       zipCode: false,
       phoneNumber: false,
     },
@@ -42,8 +45,50 @@ export const Checkout = () => {
   } = useContactInfoState();
 
   useEffect(() => {
-    console.log('a');
+    setEnableOrderButton(isFormValid());
   });
+
+  const isFormValid = () => {
+    let enableOrderButton = true;
+    const contactBilling = getContactInfo().billing;
+    const contactShipping = getContactInfo().shipping;
+    Object.values(ContactProps).forEach(function (value, index) {
+      if (value != ContactProps.APT) {
+        if (
+          enableOrderButton &&
+          value === ContactProps.ZIP_CODE &&
+          contactBilling[value].length !== 5
+        )
+          enableOrderButton = false;
+        if (
+          enableOrderButton &&
+          value === ContactProps.PHONE_NUMBER &&
+          contactBilling[value].length !== 12
+        )
+          enableOrderButton = false;
+        if (enableOrderButton && contactBilling[value].length === 0)
+          enableOrderButton = false;
+        //validate shipping if billing is all valid and users had different shipping information
+        if (enableOrderButton && !getContactInfo().isSameContact) {
+          if (
+            enableOrderButton &&
+            value === ContactProps.ZIP_CODE &&
+            contactShipping[value].length !== 5
+          )
+            enableOrderButton = false;
+          if (
+            enableOrderButton &&
+            value === ContactProps.PHONE_NUMBER &&
+            contactShipping[value].length !== 12
+          )
+            enableOrderButton = false;
+          if (enableOrderButton && contactShipping[value].length === 0)
+            enableOrderButton = false;
+        }
+      }
+    });
+    return enableOrderButton;
+  };
 
   const toggleSameAddress = () => {
     toggleSameContact();
@@ -54,7 +99,10 @@ export const Checkout = () => {
     if (isBilling) updateBillingContact(id, value);
     else updateShippingContact(id, value);
   };
-
+  const handleListChanged = (e, id, isBilling) => {
+    if (isBilling) updateBillingContact(id, e.target.value);
+    else updateShippingContact(id, e.target.value);
+  };
   const handleZipCodeChanged = (e, id, isBilling) => {
     let value = e.target.value.replace(/[^0-9]/gi, '');
     if (value.length > 5) value = value.substring(0, 5);
@@ -154,6 +202,7 @@ export const Checkout = () => {
             heading='Billing Information'
             errors={errors.billing}
             onTextChange={(event, id) => handleTextChanged(event, id, true)}
+            onStateChange={(event, id) => handleListChanged(event, id, true)}
             onZipCodeChange={(event, id) =>
               handleZipCodeChanged(event, id, true)
             }
@@ -180,6 +229,7 @@ export const Checkout = () => {
           <ContactInfo
             errors={errors.shipping}
             heading='Shipping Information'
+            onStateChange={(event, id) => handleListChanged(event, id, false)}
             onTextChange={(event, id) => handleTextChanged(event, id, false)}
             onZipCodeChange={(event, id) =>
               handleZipCodeChanged(event, id, false)
@@ -191,9 +241,10 @@ export const Checkout = () => {
             onBlur={(event, id) => handleOnBlur(event, id, false)}
           />
         )}
+
         <div className={styles.placeOrderButton}>
           <button
-            disabled='disabled'
+            disabled={!enableOrderButton}
             className={globalStyles.button}
             onClick={() => {
               history.push('/placeorder/');

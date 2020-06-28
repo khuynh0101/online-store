@@ -1,20 +1,19 @@
 import React from 'react';
-import styles from './textBox.module.css';
-import globalStyles from '../../app.module.css';
+import styles from './dropdownlist.module.css';
+import globalStyles from '../../../app.module.css';
 
-export const TextBox = ({
+export const DropDownList = ({
+  type,
   name,
-  isRequired = false,
+  isRequired,
   value,
-  placeholder,
-  textBoxStyles,
   onChange,
   onBlur,
-  hasFocus,
   hasError,
+  options,
 }) => {
   return (
-    <>
+    <div className={styles.container}>
       <div>
         <span className={`${globalStyles.textSmall}`}>{name}</span>
         {isRequired && (
@@ -25,16 +24,21 @@ export const TextBox = ({
           </span>
         )}
       </div>
-      <div className={styles.textboxErrorContainer}>
-        <input
-          type='text'
+      <div className={styles.errorContainer}>
+        <select
+          className={styles.list}
           value={value}
-          placeholder={placeholder}
-          className={`${globalStyles.input} ${textBoxStyles}`}
           onChange={onChange}
-          autoFocus={hasFocus ? true : null}
           onBlur={onBlur}
-        />
+        >
+          {options.map((option, index) => {
+            return (
+              <option key={index} value={option.abbreviation}>
+                {option.name}
+              </option>
+            );
+          })}
+        </select>
         {hasError && isRequired && (
           <svg
             className={styles.errorImg}
@@ -48,6 +52,6 @@ export const TextBox = ({
           </svg>
         )}
       </div>
-    </>
+    </div>
   );
 };

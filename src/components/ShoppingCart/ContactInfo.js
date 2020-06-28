@@ -2,12 +2,15 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './contactInfo.module.css';
 import globalStyles from '../../app.module.css';
-import { TextBox } from '../TextBox/TextBox';
+import { Input } from '../DataEntry/Input/Input';
+import { DropDownList } from '../DataEntry/DropDownList/DropDownList';
 import { ContactProps } from '../Providers/ContactInfoState';
+import states from '../../data/states.json';
 
 export const ContactInfo = ({
   heading,
   onTextChange,
+  onStateChange,
   onZipCodeChange,
   onTelephoneChange,
   onBlur,
@@ -21,7 +24,7 @@ export const ContactInfo = ({
       <p className={globalStyles.textMedium}>{heading}</p>
       <div>
         <div className={styles.inputContainer}>
-          <TextBox
+          <Input
             name='First Name:'
             isRequired='true'
             value={contactInfo.firstName}
@@ -33,7 +36,7 @@ export const ContactInfo = ({
           />
         </div>
         <div className={styles.inputContainer}>
-          <TextBox
+          <Input
             name='Last Name:'
             isRequired='true'
             value={contactInfo.lastName}
@@ -44,7 +47,7 @@ export const ContactInfo = ({
           />
         </div>
         <div className={styles.inputContainer}>
-          <TextBox
+          <Input
             name='Address:'
             isRequired='true'
             value={contactInfo.address}
@@ -55,7 +58,7 @@ export const ContactInfo = ({
           />
         </div>
         <div className={styles.inputContainer}>
-          <TextBox
+          <Input
             name='Apartment/Suite/Other:'
             textBoxStyles={`${styles.input} ${styles.apt}`}
             value={contactInfo.apt}
@@ -64,7 +67,7 @@ export const ContactInfo = ({
         </div>
 
         <div className={`${styles.inputContainer} ${styles.city}`}>
-          <TextBox
+          <Input
             name='City:'
             isRequired='true'
             textBoxStyles={`${styles.input} ${styles.city}`}
@@ -74,66 +77,18 @@ export const ContactInfo = ({
             hasError={errors.city}
           />
         </div>
+
         <div className={`${styles.inputContainer} ${styles.location}`}>
-          <div className={styles.state}>
-            <div className={globalStyles.textSmall}>State:</div>
-            <select className={styles.inputState}>
-              <option value='AL'>Alabama</option>
-              <option value='AK'>Alaska</option>
-              <option value='AZ'>Arizona</option>
-              <option value='AR'>Arkansas</option>
-              <option value='CA'>California</option>
-              <option value='CO'>Colorado</option>
-              <option value='CT'>Connecticut</option>
-              <option value='DE'>Delaware</option>
-              <option value='DC'>District Of Columbia</option>
-              <option value='FL'>Florida</option>
-              <option value='GA'>Georgia</option>
-              <option value='HI'>Hawaii</option>
-              <option value='ID'>Idaho</option>
-              <option value='IL'>Illinois</option>
-              <option value='IN'>Indiana</option>
-              <option value='IA'>Iowa</option>
-              <option value='KS'>Kansas</option>
-              <option value='KY'>Kentucky</option>
-              <option value='LA'>Louisiana</option>
-              <option value='ME'>Maine</option>
-              <option value='MD'>Maryland</option>
-              <option value='MA'>Massachusetts</option>
-              <option value='MI'>Michigan</option>
-              <option value='MN'>Minnesota</option>
-              <option value='MS'>Mississippi</option>
-              <option value='MO'>Missouri</option>
-              <option value='MT'>Montana</option>
-              <option value='NE'>Nebraska</option>
-              <option value='NV'>Nevada</option>
-              <option value='NH'>New Hampshire</option>
-              <option value='NJ'>New Jersey</option>
-              <option value='NM'>New Mexico</option>
-              <option value='NY'>New York</option>
-              <option value='NC'>North Carolina</option>
-              <option value='ND'>North Dakota</option>
-              <option value='OH'>Ohio</option>
-              <option value='OK'>Oklahoma</option>
-              <option value='OR'>Oregon</option>
-              <option value='PA'>Pennsylvania</option>
-              <option value='RI'>Rhode Island</option>
-              <option value='SC'>South Carolina</option>
-              <option value='SD'>South Dakota</option>
-              <option value='TN'>Tennessee</option>
-              <option value='TX'>Texas</option>
-              <option value='UT'>Utah</option>
-              <option value='VT'>Vermont</option>
-              <option value='VA'>Virginia</option>
-              <option value='WA'>Washington</option>
-              <option value='WV'>West Virginia</option>
-              <option value='WI'>Wisconsin</option>
-              <option value='WY'>Wyoming</option>
-            </select>
-          </div>
+          <DropDownList
+            isRequired={true}
+            name='State:'
+            options={states}
+            onChange={(e) => onStateChange(e, ContactProps.STATE)}
+            onBlur={(e) => onBlur(e, ContactProps.STATE)}
+            hasError={errors.state}
+          />
           <div>
-            <TextBox
-              type='zip'
+            <Input
               name='Zip Code:'
               isRequired='true'
               value={contactInfo.zipCode}
@@ -145,7 +100,7 @@ export const ContactInfo = ({
           </div>
         </div>
         <div className={styles.inputContainer}>
-          <TextBox
+          <Input
             name='Phone Number:'
             isRequired='true'
             value={contactInfo.phoneNumber}

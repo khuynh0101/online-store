@@ -48,13 +48,13 @@ export const ContactInfoStateProvider = ({ children }) => {
   const updateBillingContact = (id, value) => {
     const contact = getContactInfo();
     const contactBilling = getContactInfo().billing;
-    contactBilling[id] = value;
+    contactBilling[id] = value.trim();
     setContact(contact);
   };
   const updateShippingContact = (id, value) => {
     const contact = getContactInfo();
     const contactShipping = getContactInfo().shipping;
-    contactShipping[id] = value;
+    contactShipping[id] = value.trim();
     setContact(contact);
   };
   const value = {

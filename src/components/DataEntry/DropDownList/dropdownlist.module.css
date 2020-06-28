@@ -1,21 +1,14 @@
-.inputContainer {
+.container {
+  width: 100%;
   margin-bottom: 1rem;
 }
-.location {
-  display: flex;
-  flex-direction: column;
-}
-
 .requiredText {
   display: inline-block;
   padding-left: 0.3rem;
   color: #3b9288;
 }
-.state {
-  /* margin-right: 1rem; */
-  margin-bottom: 1rem;
-}
-.inputState {
+.list {
+  background: #fff;
   outline: none;
   border: 1px solid #3b9288;
   height: 34px;
@@ -25,39 +18,27 @@
   font-size: 0.8rem;
   width: 100%;
 }
-
-.input {
-  color: #184d47;
+.errorContainer {
+  position: relative;
+  /* width: fit-content; */
 }
 
-.billing {
-  display: flex;
-  flex-direction: column;
+.errorImg {
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  fill: red;
 }
-
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-  .location {
-    flex-direction: row;
+  .textboxErrorContainer {
+    display: inline-block;
   }
-  .apt {
-    width: 80px;
-  }
-  .phoneNumber,
-  .city {
-    width: 200px;
-  }
-  .state {
+  .container {
     margin-right: 1rem;
-    margin-bottom: 0;
-  }
-  .inputZipcode {
-    width: 80px;
-  }
-  .location {
-    align-items: baseline;
+    width: 200px;
   }
 }
 
