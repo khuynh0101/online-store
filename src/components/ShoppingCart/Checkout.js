@@ -91,42 +91,9 @@ export const Checkout = () => {
     toggleSameContact();
   };
 
-  const handleTextChanged = (e, id, isBilling) => {
-    const value = e.target.value; //e.target.value.replace(/[^0-9A-Za-z\s.'#-]/gi, '');
-    if (isBilling) updateBillingContact(id, value);
-    else updateShippingContact(id, value);
-  };
   const handleListChanged = (e, id, isBilling) => {
     if (isBilling) updateBillingContact(id, e.target.value);
     else updateShippingContact(id, e.target.value);
-  };
-  const handleZipCodeChanged = (e, id, isBilling) => {
-    let value = e.target.value.replace(/[^0-9]/gi, '');
-    if (value.length > 5) value = value.substring(0, 5);
-    if (isBilling) updateBillingContact(id, value);
-    else updateShippingContact(id, value);
-  };
-
-  const handleTelephoneChanged = (e, id, isBilling) => {
-    let value = e.target.value.replace(/[^0-9-]/gi, '');
-    let currentValue = value.split('-').join('');
-
-    let newValue = currentValue;
-    if (currentValue.length <= 10) {
-      if (currentValue.length > 3) {
-        newValue = currentValue.substr(0, 3) + '-' + currentValue.substr(3);
-      }
-      if (currentValue.length > 6) {
-        newValue =
-          currentValue.substr(0, 3) +
-          '-' +
-          currentValue.substr(3, 3) +
-          '-' +
-          currentValue.substr(6);
-      }
-      if (isBilling) updateBillingContact(id, newValue);
-      else updateShippingContact(id, newValue);
-    }
   };
 
   const handleOnBlur = (e, id, isBilling) => {
@@ -144,7 +111,10 @@ export const Checkout = () => {
       }
     setErrors(errorStates);
   };
-
+  const updateContactInfo = (id, value, isBilling) => {
+    if (isBilling) updateBillingContact(id, value);
+    else updateShippingContact(id, value);
+  };
   const handlePlaceOrderClick = () => {
     history.push('/confirm');
   };
@@ -157,13 +127,9 @@ export const Checkout = () => {
           <ContactInfo
             heading='Billing Information'
             errors={errors.billing}
-            onTextChange={(event, id) => handleTextChanged(event, id, true)}
             onStateChange={(event, id) => handleListChanged(event, id, true)}
-            onZipCodeChange={(event, id) =>
-              handleZipCodeChanged(event, id, true)
-            }
-            onTelephoneChange={(event, id) =>
-              handleTelephoneChanged(event, id, true)
+            onChange={(event, id) =>
+              updateContactInfo(id, event.target.value, true)
             }
             contactInfo={getContactInfo().billing}
             onBlur={(event, id) => handleOnBlur(event, id, true)}
@@ -186,12 +152,8 @@ export const Checkout = () => {
             errors={errors.shipping}
             heading='Shipping Information'
             onStateChange={(event, id) => handleListChanged(event, id, false)}
-            onTextChange={(event, id) => handleTextChanged(event, id, false)}
-            onZipCodeChange={(event, id) =>
-              handleZipCodeChanged(event, id, false)
-            }
-            onTelephoneChange={(event, id) =>
-              handleTelephoneChanged(event, id, false)
+            onChange={(event, id) =>
+              updateContactInfo(id, event.target.value, false)
             }
             contactInfo={getContactInfo().shipping}
             onBlur={(event, id) => handleOnBlur(event, id, false)}

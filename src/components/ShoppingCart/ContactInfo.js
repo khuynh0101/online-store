@@ -9,10 +9,8 @@ import states from '../../data/states.json';
 
 export const ContactInfo = ({
   heading,
-  onTextChange,
+  onChange,
   onStateChange,
-  onZipCodeChange,
-  onTelephoneChange,
   onBlur,
   contactInfo,
   hasFocus,
@@ -29,7 +27,7 @@ export const ContactInfo = ({
             isRequired='true'
             value={contactInfo.firstName}
             textBoxStyles={styles.input}
-            onChange={(e) => onTextChange(e, ContactProps.FIRST_NAME)}
+            onChange={(e) => onChange(e, ContactProps.FIRST_NAME)}
             onBlur={(e) => onBlur(e, ContactProps.FIRST_NAME)}
             hasFocus={hasFocus}
             hasError={errors.firstName}
@@ -41,7 +39,7 @@ export const ContactInfo = ({
             isRequired='true'
             value={contactInfo.lastName}
             textBoxStyles={styles.input}
-            onChange={(e) => onTextChange(e, ContactProps.LAST_NAME)}
+            onChange={(e) => onChange(e, ContactProps.LAST_NAME)}
             onBlur={(e) => onBlur(e, ContactProps.LAST_NAME)}
             hasError={errors.lastName}
           />
@@ -52,7 +50,7 @@ export const ContactInfo = ({
             isRequired='true'
             value={contactInfo.address}
             textBoxStyles={styles.input}
-            onChange={(e) => onTextChange(e, ContactProps.ADDRESS)}
+            onChange={(e) => onChange(e, ContactProps.ADDRESS)}
             onBlur={(e) => onBlur(e, ContactProps.ADDRESS)}
             hasError={errors.address}
           />
@@ -62,7 +60,7 @@ export const ContactInfo = ({
             name='Apartment/Suite/Other:'
             textBoxStyles={`${styles.input} ${styles.apt}`}
             value={contactInfo.apt}
-            onChange={(e) => onTextChange(e, ContactProps.APT)}
+            onChange={(e) => onChange(e, ContactProps.APT)}
           />
         </div>
 
@@ -72,7 +70,7 @@ export const ContactInfo = ({
             isRequired='true'
             textBoxStyles={`${styles.input} ${styles.city}`}
             value={contactInfo.city}
-            onChange={(e) => onTextChange(e, ContactProps.CITY)}
+            onChange={(e) => onChange(e, ContactProps.CITY)}
             onBlur={(e) => onBlur(e, ContactProps.CITY)}
             hasError={errors.city}
           />
@@ -89,11 +87,12 @@ export const ContactInfo = ({
           />
           <div>
             <Input
+              type='zip'
               name='Zip Code:'
               isRequired='true'
               value={contactInfo.zipCode}
               textBoxStyles={`${styles.input} ${styles.inputZipcode}`}
-              onChange={(e) => onZipCodeChange(e, ContactProps.ZIP_CODE)}
+              onChange={(e) => onChange(e, ContactProps.ZIP_CODE)}
               onBlur={(e) => onBlur(e, ContactProps.ZIP_CODE)}
               hasError={errors.zipCode}
             />
@@ -101,11 +100,12 @@ export const ContactInfo = ({
         </div>
         <div className={styles.inputContainer}>
           <Input
+            type='phoneNumber'
             name='Phone Number:'
             isRequired='true'
             value={contactInfo.phoneNumber}
             textBoxStyles={`${styles.input} ${styles.phoneNumber}`}
-            onChange={(e) => onTelephoneChange(e, ContactProps.PHONE_NUMBER)}
+            onChange={(e) => onChange(e, ContactProps.PHONE_NUMBER)}
             onBlur={(e) => onBlur(e, ContactProps.PHONE_NUMBER)}
             hasError={errors.phoneNumber}
           />
