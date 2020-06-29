@@ -20,6 +20,12 @@ export const ShoppingCart = () => {
     if (prod && prod.length > 0) return prod[0];
     return null;
   };
+  const disabledCheckout = false;
+  let totalItems = 0;
+  cartItems.forEach((item) => {
+    totalItems += item.numItem;
+  });
+
   const history = useHistory();
   const totalPrice = useGetTotalCost();
   return (
@@ -113,20 +119,25 @@ export const ShoppingCart = () => {
             );
           }
         })}
-        <div className={`${styles.totalContainer} ${styles.textMedium}`}>
-          <p className={styles.totalText}>Total:</p>
-          <p className={styles.totalPrice}>${totalPrice}</p>
-        </div>
-        <div>
-          <button
-            className={globalStyles.button}
-            onClick={() => {
-              history.push('/checkout/');
-            }}
-          >
-            Check out
-          </button>
-        </div>
+        {cartItems.length !== 0 && (
+          <>
+            <div className={`${styles.totalContainer} ${styles.textMedium}`}>
+              <p className={styles.totalText}>Total:</p>
+              <p className={styles.totalPrice}>${totalPrice}</p>
+            </div>
+            <div>
+              <button
+                disabled={totalItems === 0}
+                className={globalStyles.button}
+                onClick={() => {
+                  history.push('/checkout/');
+                }}
+              >
+                Check out
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

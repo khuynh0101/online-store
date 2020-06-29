@@ -40,6 +40,10 @@ export const Input = ({
         e.target.value = newValue;
         onChange(e);
       }
+    } else if (type === 'email') {
+      const value = e.target.value.replace(/[^0-9A-Za-z@.]/gi, '');
+      e.target.value = value;
+      onChange(e);
     } else {
       const value = e.target.value.replace(/[^0-9A-Za-z\s.'#-]/gi, '');
       e.target.value = value;

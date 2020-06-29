@@ -1,31 +1,114 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import styles from './contact.module.css';
+import globalStyles from '../../app.module.css';
+import { Input } from '../DataEntry/Input/Input';
+import { TextArea } from '../DataEntry/TextArea/TextArea';
+
 export const Contact = () => {
+  const [state, setState] = useState({
+    email: '',
+    message: '',
+    emailhasError: false,
+    messageHasError: false,
+    messageSent: false,
+  });
+
+  const [enableOrderButton, setEnableOrderButton] = useState(false);
+
+  useEffect(() => {
+    setEnableOrderButton(isFormValid());
+  });
+  const isFormValid = () => {
+    let enableOrderButton = true;
+    if (enableOrderButton && !checkEmail(state.email))
+      enableOrderButton = false;
+
+    if (enableOrderButton && state.message.length === 0)
+      enableOrderButton = false;
+
+    return enableOrderButton;
+  };
+  const handleEmailChanged = (e) => {
+    const stateObj = { ...state };
+    stateObj.email = e.target.value;
+    setState(stateObj);
+  };
+
+  const handleMessageChanged = (e) => {
+    const stateObj = { ...state };
+    stateObj.message = e.target.value;
+    setState(stateObj);
+  };
+
+  const handleEmailOnBlur = (e) => {
+    const stateObj = { ...state };
+    stateObj.emailhasError = !checkEmail(e.target.value);
+    setState(stateObj);
+  };
+  const handleMessageBlur = (e) => {
+    const stateObj = { ...state };
+    stateObj.messageHasError = e.target.value.length === 0;
+    setState(stateObj);
+  };
+
+  const checkEmail = (value) => {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+  };
+
+  const handleSendMessageClick = () => {
+    const stateObj = {
+      email: '',
+      message: '',
+      emailhasError: false,
+      messageHasError: false,
+      messageSent: true,
+    };
+    setState(stateObj);
+  };
   return (
-    <>
-      <div>
-        <a href='#'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            height='24'
-            width='24'
-            viewBox='0 0 24 24'
+    <section className={globalStyles.container}>
+      <p className={globalStyles.textMedium}>Feel free to contact us</p>
+      <div className={styles.container}>
+        <div className={styles.input}>
+          <Input
+            type='email'
+            name='Email:'
+            hasFocus={true}
+            isRequired={true}
+            onChange={handleEmailChanged}
+            onBlur={handleEmailOnBlur}
+            value={state.email}
+            hasError={state.emailhasError}
+          />
+        </div>
+        <div className={styles.input}>
+          <TextArea
+            name='Message:'
+            isRequired={true}
+            onChange={handleMessageChanged}
+            onBlur={handleMessageBlur}
+            value={state.message}
+            hasError={state.messageHasError}
+          />
+        </div>
+        <div>
+          <button
+            disabled={!enableOrderButton}
+            className={globalStyles.button}
+            onClick={handleSendMessageClick}
           >
-            <path d='M0 0h24v24H0z' fill='none' />
-            <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' />
-          </svg>
-        </a>
-        <a href='#'>
-          <svg
-            height='24'
-            width='24'
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 24 24'
-          >
-            <path d='M0 0h24v24H0z' fill='none'></path>
-            <path d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'></path>
-          </svg>
-        </a>
+            Send Message
+          </button>
+        </div>
+        {state.messageSent && (
+          <div>
+            <p className={globalStyles.textMedium}>
+              Your message has been sent. We will reply back in 1-2 business
+              days.
+            </p>
+          </div>
+        )}
       </div>
-    </>
+    </section>
   );
 };
