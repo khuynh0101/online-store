@@ -67,7 +67,7 @@ export const CartStateProvider = ({ children }) => {
     const index = items.findIndex((p) => p.id === id);
     if (index > -1) {
       const item = items[index];
-      if (item.numItem >= 1) {
+      if (item.numItem > 1) {
         item.numItem--;
         item.price = item.numItem * item.price;
       }
