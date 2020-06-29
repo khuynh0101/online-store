@@ -1,0 +1,41 @@
+.location {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+}
+.location:first-child {
+  border-bottom: 1px solid black;
+}
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+}
+.orderDetails {
+  padding-top: 2rem;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  .location {
+    margin: auto;
+    width: 60%;
+  }
+
+  .orderDetails {
+    margin: auto;
+    width: 60%;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+@media (min-width: 2048px) {
+  html {
+    font-size: 20px;
+  }
+}

@@ -22,7 +22,7 @@ export const Products = ({ heading, products }) => {
   };
 
   return (
-    <section className={styles.productsContainer}>
+    <section className={globalStyles.container}>
       <p className={globalStyles.textMedium}>{heading}</p>
       <div className={styles.productsContentGrid}>
         {products.map((product, index) => {

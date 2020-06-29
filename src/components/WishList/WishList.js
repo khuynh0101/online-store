@@ -15,11 +15,9 @@ export const WishList = () => {
   });
 
   return (
-    <section className={globalStyles.container}>
-      <Products
-        heading='Here are the items you like to buy'
-        products={wishListProducts}
-      />
-    </section>
+    <Products
+      heading='Here are the items you like to buy'
+      products={wishListProducts}
+    />
   );
 };

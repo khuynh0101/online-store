@@ -18,6 +18,11 @@
   font-size: 0.8rem;
   width: 100%;
 }
+
+.list > option:hover {
+  background: #fff;
+}
+
 .errorContainer {
   position: relative;
   /* width: fit-content; */

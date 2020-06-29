@@ -3,8 +3,7 @@ import styles from './checkout.module.css';
 import globalStyles from '../../app.module.css';
 import { useHistory } from 'react-router-dom';
 import { ContactInfo } from './ContactInfo';
-import { useCartState } from '../Providers/CartState';
-import { useProductsState } from '../Providers/ProductsState';
+import { OrderSummary } from '../OrderSummary/OrderSummary';
 import {
   ContactProps,
   useContactInfoState,
@@ -35,8 +34,6 @@ export const Checkout = () => {
     },
   });
 
-  const { cartItems } = useCartState();
-  const { getProductsById } = useProductsState();
   const {
     getContactInfo,
     toggleSameContact,
@@ -68,7 +65,7 @@ export const Checkout = () => {
           enableOrderButton = false;
         if (enableOrderButton && contactBilling[value].length === 0)
           enableOrderButton = false;
-        //validate shipping if billing is all valid and users had different shipping information
+        //validate shipping if billing is all valid and users has different shipping information
         if (enableOrderButton && !getContactInfo().isSameContact) {
           if (
             enableOrderButton &&
@@ -95,7 +92,7 @@ export const Checkout = () => {
   };
 
   const handleTextChanged = (e, id, isBilling) => {
-    const value = e.target.value.replace(/[^0-9A-Za-z\s.'#-]/gi, '');
+    const value = e.target.value; //e.target.value.replace(/[^0-9A-Za-z\s.'#-]/gi, '');
     if (isBilling) updateBillingContact(id, value);
     else updateShippingContact(id, value);
   };
@@ -147,57 +144,16 @@ export const Checkout = () => {
       }
     setErrors(errorStates);
   };
+
+  const handlePlaceOrderClick = () => {
+    history.push('/confirm');
+  };
   return (
     <section className={globalStyles.container}>
       <p className={globalStyles.textMedium}>Check out</p>
       <div className={styles.container}>
         <div className={styles.billingOrdercontainer}>
-          <div className={styles.orderSummary}>
-            <p className={globalStyles.textMedium}>Order Summary</p>
-            <ul className={styles.order}>
-              <li>Description</li>
-              <li className={styles.orderAmount}>Amount</li>
-              <li className={styles.orderTotal}>Total</li>
-            </ul>
-            {cartItems.map((cartItem, index) => {
-              const product = getProductsById(cartItem.id);
-              return (
-                <ul key={index} className={styles.order}>
-                  <li
-                    className={`${globalStyles.textSmall} ${styles.orderProductName}`}
-                  >
-                    {product.name}
-                  </li>
-                  <li
-                    className={`${globalStyles.textSmall} ${styles.orderAmount}`}
-                  >
-                    {cartItem.numItem}
-                  </li>
-                  <li
-                    className={`${globalStyles.textSmall} ${styles.orderTotal}`}
-                  >
-                    ${cartItem.numItem * product.price}
-                  </li>
-                </ul>
-              );
-            })}
-
-            <div className={styles.totalFlex}>
-              <p className={styles.totalText}>Total:</p>
-              <p className={styles.totalAmount}>${useGetTotalCost()}</p>
-            </div>
-            <div className={styles.editButton}>
-              <button
-                className={globalStyles.button}
-                onClick={() => {
-                  history.push('/cart/');
-                }}
-              >
-                Edit
-              </button>
-            </div>
-          </div>
-
+          <OrderSummary />
           <ContactInfo
             heading='Billing Information'
             errors={errors.billing}
@@ -246,9 +202,7 @@ export const Checkout = () => {
           <button
             disabled={!enableOrderButton}
             className={globalStyles.button}
-            onClick={() => {
-              history.push('/placeorder/');
-            }}
+            onClick={handlePlaceOrderClick}
           >
             Place order
           </button>

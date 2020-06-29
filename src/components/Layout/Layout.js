@@ -8,6 +8,7 @@ import { WishList } from '../WishList/WishList';
 import { Search } from '../Search/Search';
 import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
 import { Checkout } from '../ShoppingCart/Checkout';
+import { Confirmation } from '../Confirmation/Confirmation';
 import { Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
@@ -47,6 +48,11 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       <Route path='/checkout'>
         <div className={styles.plantContainer}>
           <Checkout />
+        </div>
+      </Route>
+      <Route path='/confirm'>
+        <div className={styles.plantContainer}>
+          <Confirmation />
         </div>
       </Route>
       <Route path='/' exact>

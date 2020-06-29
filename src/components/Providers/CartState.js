@@ -47,6 +47,10 @@ export const CartStateProvider = ({ children }) => {
     updateCart(items);
   };
 
+  const removeAllItems = (id) => {
+    updateCart([]);
+  };
+
   const increaseCount = (id) => {
     const items = [...cartItems];
     const index = items.findIndex((p) => p.id === id);
@@ -75,6 +79,7 @@ export const CartStateProvider = ({ children }) => {
     cartItems,
     toggleToCart,
     removeItem,
+    removeAllItems,
     inCart,
     increaseCount,
     decreaseCount,
