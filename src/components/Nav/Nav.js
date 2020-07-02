@@ -15,7 +15,7 @@ export const Nav = () => {
     if (menuName) {
       let menuItems = getMenu();
       menuItems.forEach((menuItem, idx) => {
-        if (menuItem.name.toLowerCase() === menuName.trim()) {
+        if (menuItem.Name.toLowerCase() === menuName.trim()) {
           selectMenuItem(idx, false);
         }
       });
@@ -33,10 +33,10 @@ export const Nav = () => {
             <li key={index} className={styles.navContainerSubitem}>
               <Link
                 className={globalStyles.link}
-                to={subMenuItem.url}
+                to={subMenuItem.Url}
                 onClick={() => toggleSubMenu(parentIndex)}
               >
-                <span>{subMenuItem.type}</span>
+                <span>{subMenuItem.Name}</span>
               </Link>
             </li>
           );
@@ -50,27 +50,27 @@ export const Nav = () => {
         {getMenu().map((menuItem, index) => {
           let svgArrowClassName = styles.svgArrow;
           let liClassName = styles.navContainerItem;
-          let selectedClassName = menuItem.isActive
+          let selectedClassName = menuItem.IsActive
             ? `${globalStyles.link} ${globalStyles.active}`
             : globalStyles.link;
-          if (menuItem.subMenus) {
-            selectedClassName = menuItem.subMenus
+          if (menuItem.SubMenus && menuItem.SubMenus.length > 0) {
+            selectedClassName = menuItem.SubMenus
               ? `${selectedClassName} ${styles.linkArrow}`
               : '';
             liClassName = `${liClassName} ${styles.subItems}`;
           }
-          svgArrowClassName = menuItem.showSubMenus
+          svgArrowClassName = menuItem.ShowSubMenus
             ? `${svgArrowClassName} ${styles.svgArrowUp}`
             : `${svgArrowClassName} ${styles.svgArrowDown}`;
           return (
             <li key={index} className={liClassName}>
               <Link
                 className={selectedClassName}
-                to={menuItem.url}
+                to={menuItem.Url}
                 onClick={(event) => selectMenuItem(index)}
               >
-                <span>{menuItem.name}</span>
-                {menuItem.subMenus && (
+                <span>{menuItem.Name}</span>
+                {menuItem.SubMenus && menuItem.SubMenus.length > 0 && (
                   <svg
                     className={svgArrowClassName}
                     xmlns='http://www.w3.org/2000/svg'
@@ -84,8 +84,8 @@ export const Nav = () => {
                   </svg>
                 )}
               </Link>
-              {menuItem.showSubMenus
-                ? renderSubMenu(menuItem.subMenus, index)
+              {menuItem.ShowSubMenus
+                ? renderSubMenu(menuItem.SubMenus, index)
                 : null}
             </li>
           );

@@ -2,8 +2,17 @@ import React, { useState, useEffect } from 'react';
 import menu from '../../data/menu.json';
 
 export const useNavStore = () => {
-  const [state, setState] = useState(menu || []);
+  const [state, setState] = useState([]);
 
+  useEffect(() => {
+    async function getMenu() {
+      const url = 'https://localhost:44353/api/store/GetNavigationMenu';
+      const response = await fetch(url);
+      const data = await response.json();
+      setState(data);
+    }
+    getMenu();
+  }, []);
   // const updatestate = (state) => {
   //   setState(state);
   // };
@@ -15,12 +24,12 @@ export const useNavStore = () => {
     console.log(menuItems);
     menuItems.forEach((menuItem, idx) => {
       if (idx === index) {
-        menuItem.isActive = true;
-        if (menuItem.subMenus && showSubMenus)
-          menuItem.showSubMenus = !menuItem.showSubMenus;
+        menuItem.IsActive = true;
+        if (menuItem.SubMenus && showSubMenus)
+          menuItem.ShowSubMenus = !menuItem.ShowSubMenus;
       } else {
-        menuItems[idx].isActive = false;
-        menuItem.showSubMenus = false;
+        menuItems[idx].IsActive = false;
+        menuItem.ShowSubMenus = false;
       }
     });
     //menuItems[index].isActive = true;
@@ -30,7 +39,7 @@ export const useNavStore = () => {
   const toggleSubMenu = (parentIndex) => {
     const menuItems = getMenu();
     const menuItem = menuItems[parentIndex];
-    menuItem.showSubMenus = !menuItem.showSubMenus;
+    menuItem.ShowSubMenus = !menuItem.ShowSubMenus;
     setState(menuItems);
   };
 
