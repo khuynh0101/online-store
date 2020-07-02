@@ -9,7 +9,7 @@ export const Search = () => {
   let products = null;
   if (term) {
     products = getProducts().filter((p) =>
-      p.keywords.toLowerCase().includes(term.toLowerCase())
+      p.Keywords.toLowerCase().includes(term.toLowerCase())
     );
   }
   const heading =

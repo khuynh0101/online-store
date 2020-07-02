@@ -27,17 +27,19 @@ export const Products = ({ heading, products }) => {
       <div className={styles.productsContentGrid}>
         {products.map((product, index) => {
           const wishListSelectedClassName =
-            wishListItems.indexOf(product.id) > -1 ? styles.selected : null;
+            wishListItems.indexOf(product.ProductId) > -1
+              ? styles.selected
+              : null;
           return (
             <div key={index} className={styles.productFlex}>
               <div className={styles.wishlist}>
                 <p
                   className={`${globalStyles.textMedium} ${styles.productName}`}
                 >
-                  {product.name}
+                  {product.Name}
                 </p>
                 <svg
-                  onClick={() => handleWishlistClick(product.id)}
+                  onClick={() => handleWishlistClick(product.ProductId)}
                   className={styles.svgImg}
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
@@ -50,27 +52,27 @@ export const Products = ({ heading, products }) => {
                 </svg>
               </div>
               <p className={`${globalStyles.textSmall} ${styles.price}`}>
-                ${product.price}
+                ${product.Price}
               </p>
               <div
                 className={styles.productBackgroundGradient}
-                onMouseEnter={() => selectProductItem(product.id)}
-                onMouseLeave={() => deSelectProductItem(product.id)}
+                onMouseEnter={() => selectProductItem(product.ProductId)}
+                onMouseLeave={() => deSelectProductItem(product.ProductId)}
               >
                 <img
-                  alt={product.name}
+                  alt={product.Name}
                   className={styles.imgPlant}
-                  src={product.url}
+                  src={product.Url}
                 />
               </div>
               <div>
                 <button
                   className={globalStyles.button}
                   type='button'
-                  onClick={() => toggleToCart(product.id)}
+                  onClick={() => toggleToCart(product.ProductId)}
                 >
-                  {inCart(product.id) && `Remove from cart`}
-                  {!inCart(product.id) && `Add to cart`}
+                  {inCart(product.ProductId) && `Remove from cart`}
+                  {!inCart(product.ProductId) && `Add to cart`}
                 </button>
               </div>
             </div>

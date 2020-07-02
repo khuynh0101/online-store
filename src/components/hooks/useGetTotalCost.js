@@ -9,7 +9,7 @@ export const useGetTotalCost = () => {
   let totalCost = 0;
   cartItems.forEach((cartItem) => {
     const product = getProductsById(cartItem.id);
-    if (product) totalCost += cartItem.numItem * product.price;
+    if (product) totalCost += cartItem.numItem * product.Price;
   });
   return totalCost;
 };

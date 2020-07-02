@@ -16,7 +16,7 @@ export const ShoppingCart = () => {
   } = useCartState();
 
   const getProduct = (id) => {
-    const prod = getProducts().filter((p) => p.id === id);
+    const prod = getProducts().filter((p) => p.ProductId === id);
     if (prod && prod.length > 0) return prod[0];
     return null;
   };
@@ -61,11 +61,11 @@ export const ShoppingCart = () => {
                     </a>
                   </li>
                   <li className={styles.imgPlantGradient}>
-                    <img className={styles.imgPlant} src={product.url} />
+                    <img className={styles.imgPlant} src={product.Url} />
                   </li>
                   <li>
                     <span className={globalStyles.textMedium}>
-                      {product.name}
+                      {product.Name}
                     </span>
                   </li>
                   <li className={styles.itemCounterFlex}>
@@ -111,7 +111,7 @@ export const ShoppingCart = () => {
                   </li>
                   <li className={styles.amount}>
                     <span className={styles.textMedium}>
-                      ${cartItem.numItem * product.price}
+                      ${cartItem.numItem * product.Price}
                     </span>
                   </li>
                 </ul>

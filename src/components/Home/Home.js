@@ -7,7 +7,7 @@ import { useProductsState } from '../Providers/ProductsState';
 
 export const Home = () => {
   const { getProducts } = useProductsState();
-  const filteredProducts = getProducts().filter((p) => p.recommended);
+  const filteredProducts = getProducts().filter((p) => p.Recommended);
   return (
     <>
       <section className={styles.heroGrid}>

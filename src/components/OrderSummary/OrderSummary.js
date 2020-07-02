@@ -33,13 +33,13 @@ export const OrderSummary = ({
             <li
               className={`${globalStyles.textSmall} ${styles.orderProductName}`}
             >
-              {product.name}
+              {product.Name}
             </li>
             <li className={`${globalStyles.textSmall} ${styles.orderAmount}`}>
               {cartItem.numItem}
             </li>
             <li className={`${globalStyles.textSmall} ${styles.orderTotal}`}>
-              ${cartItem.numItem * product.price}
+              ${cartItem.numItem * product.Price}
             </li>
           </ul>
         );

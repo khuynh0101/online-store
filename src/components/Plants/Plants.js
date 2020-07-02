@@ -9,7 +9,7 @@ export const Plants = () => {
   let productsByCat = products;
   const { name } = useParams();
   if (name) {
-    productsByCat = products.filter((p) => p.type.toLowerCase() === name);
+    productsByCat = products.filter((p) => p.Type.toLowerCase() === name);
     if (productsByCat.length == 0) productsByCat = products;
   }
   return (

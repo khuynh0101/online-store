@@ -10,7 +10,7 @@ export const WishList = () => {
 
   let wishListProducts = [];
   getWishList().map((wishListItem) => {
-    const product = getProducts().filter((p) => p.id === wishListItem);
+    const product = getProducts().filter((p) => p.ProductId === wishListItem);
     if (product && product.length > 0) wishListProducts.push(product[0]);
   });
 

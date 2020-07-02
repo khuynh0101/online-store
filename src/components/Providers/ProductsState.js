@@ -1,9 +1,18 @@
-import React, { useContext, useState } from 'react';
-import productsJSON from '../../data/products.json';
+import React, { useContext, useState, useEffect } from 'react';
 
 const ProductsStateContext = React.createContext();
 export const ProductsStateProvider = ({ children }) => {
-  const [products, setProducts] = useState(productsJSON);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function getProducts() {
+      const url = `${process.env.REACT_APP_API_PREFIX_URL}GetAllProducts`;
+      const response = await fetch(url);
+      const data = await response.json();
+      setProducts(data);
+    }
+    getProducts();
+  }, []);
 
   const getProducts = () => {
     return [...products];
@@ -20,8 +29,8 @@ export const ProductsStateProvider = ({ children }) => {
   };
 
   const getItem = (items, id) => {
-    const index = items.findIndex((p) => p.id === id);
-    const itemObj = items.filter((p) => p.id === id);
+    const index = items.findIndex((p) => p.ProductId === id);
+    const itemObj = items.filter((p) => p.ProductId === id);
     let item = null;
     if (itemObj && itemObj.length > 0) {
       item = itemObj[0];
@@ -29,7 +38,7 @@ export const ProductsStateProvider = ({ children }) => {
     return { items, item, index };
   };
   const getProductsById = (id) => {
-    const products = getProducts().filter((p) => p.id === id);
+    const products = getProducts().filter((p) => p.ProductId === id);
     if (products && products.length > 0) {
       return products[0];
     }
