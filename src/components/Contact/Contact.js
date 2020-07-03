@@ -3,6 +3,7 @@ import styles from './contact.module.css';
 import globalStyles from '../../app.module.css';
 import { Input } from '../DataEntry/Input/Input';
 import { TextArea } from '../DataEntry/TextArea/TextArea';
+import { checkEmailValid } from '../../utils/checkEmailValid';
 
 export const Contact = () => {
   const [state, setState] = useState({
@@ -20,7 +21,7 @@ export const Contact = () => {
   });
   const isFormValid = () => {
     let enableOrderButton = true;
-    if (enableOrderButton && !checkEmail(state.email))
+    if (enableOrderButton && !checkEmailValid(state.email))
       enableOrderButton = false;
 
     if (enableOrderButton && state.message.length === 0)
@@ -42,7 +43,7 @@ export const Contact = () => {
 
   const handleEmailOnBlur = (e) => {
     const stateObj = { ...state };
-    stateObj.emailhasError = !checkEmail(e.target.value);
+    stateObj.emailhasError = !checkEmailValid(e.target.value);
     setState(stateObj);
   };
   const handleMessageBlur = (e) => {
@@ -51,9 +52,9 @@ export const Contact = () => {
     setState(stateObj);
   };
 
-  const checkEmail = (value) => {
-    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
-  };
+  // const checkEmail = (value) => {
+  //   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+  // };
 
   const handleSendMessageClick = () => {
     const stateObj = {

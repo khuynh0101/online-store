@@ -7,7 +7,7 @@
 }
 .navContainerItem {
   display: inline;
-  padding-right: 1.2rem;
+  padding-right: 1rem;
 }
 .subItems {
   position: relative;
@@ -45,7 +45,10 @@
   display: inline-block;
   margin-bottom: -5px;
 }
-
+.svgImg {
+  height: 22px;
+  width: 22px;
+}
 .svgArrow {
   height: 14px;
   width: 14px;

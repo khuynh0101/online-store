@@ -9,6 +9,7 @@ import { Search } from '../Search/Search';
 import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
 import { Checkout } from '../ShoppingCart/Checkout';
 import { Confirmation } from '../Confirmation/Confirmation';
+import { SignIn } from '../UserProfile/SignIn';
 import { Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
@@ -53,6 +54,11 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       <Route path='/confirm'>
         <div className={styles.plantContainer}>
           <Confirmation />
+        </div>
+      </Route>
+      <Route path='/signin' exact>
+        <div className={styles.plantContainer}>
+          <SignIn />
         </div>
       </Route>
       <Route path='/' exact>

@@ -20,12 +20,12 @@
   height: 20px;
   width: 20px;
 }
-.svgAction {
+/* .svgAction {
   fill: #3b9288;
 }
 .svgAction:hover {
   fill: #184d47;
-}
+} */
 .imgPlant {
   max-width: 60%;
   height: auto;

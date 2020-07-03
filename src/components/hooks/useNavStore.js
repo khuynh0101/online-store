@@ -6,8 +6,7 @@ export const useNavStore = () => {
 
   useEffect(() => {
     async function getMenu() {
-      console.log();
-      const url = `${process.env.REACT_APP_API_PREFIX_URL}GetNavigationMenu`;
+      const url = `${process.env.REACT_APP_API_STORE_PREFIX_URL}GetNavigationMenu`;
       const response = await fetch(url);
       const data = await response.json();
       setState(data);

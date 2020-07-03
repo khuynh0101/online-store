@@ -44,6 +44,10 @@ export const Input = ({
       const value = e.target.value.replace(/[^0-9A-Za-z@.]/gi, '');
       e.target.value = value;
       onChange(e);
+    } else if (type === 'password') {
+      const value = e.target.value.replace(/ /gi, '');
+      e.target.value = value;
+      onChange(e);
     } else {
       const value = e.target.value.replace(/[^0-9A-Za-z\s.'#-]/gi, '');
       e.target.value = value;
@@ -66,7 +70,7 @@ export const Input = ({
         </div>
         <div className={styles.textboxErrorContainer}>
           <input
-            type='text'
+            type={type}
             value={value}
             placeholder={placeholder}
             className={`${globalStyles.input} ${textBoxStyles}`}

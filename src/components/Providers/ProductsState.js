@@ -6,7 +6,7 @@ export const ProductsStateProvider = ({ children }) => {
 
   useEffect(() => {
     async function getProducts() {
-      const url = `${process.env.REACT_APP_API_PREFIX_URL}GetAllProducts`;
+      const url = `${process.env.REACT_APP_API_STORE_PREFIX_URL}GetAllProducts`;
       const response = await fetch(url);
       const data = await response.json();
       setProducts(data);
