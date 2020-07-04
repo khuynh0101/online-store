@@ -1,5 +1,5 @@
-export const checkEnterKey = (event, executeEnterKeyFunction) => {
+export const checkEnterKey = (event, executeEnterKeyFunc) => {
   if (event.keyCode === 13) {
-    executeEnterKeyFunction();
+    executeEnterKeyFunc();
   }
 };

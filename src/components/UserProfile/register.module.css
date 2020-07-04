@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 0.3fr;
+  justify-items: center;
+}
+.input {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.message {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  .container {
+    margin: auto;
+    width: 50%;
+  }
+  .input {
+    margin-bottom: 1rem;
+    width: unset;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+@media (min-width: 2048px) {
+  html {
+    font-size: 20px;
+  }
+}

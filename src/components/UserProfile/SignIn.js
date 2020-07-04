@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '../DataEntry/Input/Input';
 import { checkEmailValid } from '../../utils/checkEmailValid';
-import { useHistory } from 'react-router-dom';
+import { useSecurity } from '../hooks/useSecurity';
+import { Link, useHistory } from 'react-router-dom';
+import { checkEnterKey } from '../../utils/checkEnterKey';
 import styles from './signin.module.css';
 import globalStyles from '../../app.module.css';
 
@@ -14,17 +16,14 @@ export const SignIn = () => {
     passwordHasError: false,
     messageSent: false,
   });
-
+  const { isLoggedIn, signIn, signOut } = useSecurity();
   const [message, setMessage] = useState('');
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    setLoggedIn(document.cookie.indexOf('u=') > -1);
-  });
   const [enableButton, setEnableButton] = useState(false);
   useEffect(() => {
     setEnableButton(isFormValid());
   });
+
   const isFormValid = () => {
     let enableButton = true;
     if (enableButton && !checkEmailValid(state.email)) enableButton = false;
@@ -33,6 +32,7 @@ export const SignIn = () => {
 
     return enableButton;
   };
+
   const handleEmailChanged = (e) => {
     const stateObj = { ...state };
     stateObj.email = e.target.value;
@@ -56,64 +56,42 @@ export const SignIn = () => {
     setState(stateObj);
   };
   const handleSignInClick = () => {
-    const data = `${state.email}:${state.password}`;
-    const encodedData = window.btoa(data);
-    // document.cookie = `u=${encodedData};path=/`;
-    //call service to confirm the
-    signIn(encodedData);
-    // document.cookie = `u=${encodedData};path=/`;
-    // } else {
-    //   setMessage('Invalid email/password.');
-    // }
-    //show option to add email address
-    //history.push('/');
+    if (isFormValid()) signIn(state.email, state.password, updateMessage);
+    else setEnableButton(false);
   };
   const handleSignOutClick = () => {
-    document.cookie = `u='';path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-    setLoggedIn(false);
+    const user = { ...state };
+    user.email = '';
+    user.password = '';
+    setState(user);
+    signOut();
   };
 
-  const signIn = async (user) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_USER_PREFIX_URL}SignIn`,
-        {
-          method: 'POST',
-          headers: {
-            authorization: `Basic ${user}`,
-          },
-        }
-      );
-      const data = await response.json();
-      if (data.content) {
-        setLoggedIn(true);
-        document.cookie = `u=${user};path=/`;
-      } else {
-        setMessage('Invalid email/password.');
-      }
-    } catch {
-      setMessage('Error occurred. Please try again.');
-    }
+  const updateMessage = ({ status, message }) => {
+    if (!status) setMessage(message);
   };
   return (
-    <section className={globalStyles.container}>
+    <section
+      className={globalStyles.container}
+      onKeyDown={(event) => checkEnterKey(event, handleSignInClick)}
+    >
       <p className={globalStyles.textLarge}>Sign In</p>
 
       <div className={styles.container}>
-        {loggedIn && (
+        {isLoggedIn && (
           <>
             <p className={globalStyles.textMedium}>
               You are already signed in. Click the button below to sign out.
-              <button
-                className={globalStyles.button}
-                onClick={handleSignOutClick}
-              >
-                Sign Out
-              </button>
             </p>
+            <button
+              className={globalStyles.button}
+              onClick={handleSignOutClick}
+            >
+              Sign Out
+            </button>
           </>
         )}
-        {!loggedIn && (
+        {!isLoggedIn && (
           <>
             <div className={styles.input}>
               <Input
@@ -146,10 +124,20 @@ export const SignIn = () => {
                 Sign In
               </button>
             </div>
-
             <div>
               <p className={globalStyles.textMedium}>{message}</p>
             </div>
+            <p>
+              <span className={globalStyles.textSmall}>
+                Don't have an account.{' '}
+                <Link
+                  className={`${globalStyles.textSmall} ${globalStyles.link}`}
+                  to='/register'
+                >
+                  Register here
+                </Link>
+              </span>
+            </p>
           </>
         )}
       </div>

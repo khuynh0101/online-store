@@ -10,6 +10,7 @@ import { ShoppingCart } from '../ShoppingCart/ShoppingCart';
 import { Checkout } from '../ShoppingCart/Checkout';
 import { Confirmation } from '../Confirmation/Confirmation';
 import { SignIn } from '../UserProfile/SignIn';
+import { Register } from '../UserProfile/Register';
 import { Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
@@ -59,6 +60,11 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       <Route path='/signin' exact>
         <div className={styles.plantContainer}>
           <SignIn />
+        </div>
+      </Route>
+      <Route path='/register' exact>
+        <div className={styles.plantContainer}>
+          <Register />
         </div>
       </Route>
       <Route path='/' exact>
