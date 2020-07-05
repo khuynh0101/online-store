@@ -11,6 +11,7 @@ import { Checkout } from '../ShoppingCart/Checkout';
 import { Confirmation } from '../Confirmation/Confirmation';
 import { SignIn } from '../UserProfile/SignIn';
 import { Register } from '../UserProfile/Register';
+import { Reset } from '../UserProfile/Reset';
 import { Route } from 'react-router-dom';
 
 export const Layout = ({ menu, onMenuItemClick }) => {
@@ -65,6 +66,16 @@ export const Layout = ({ menu, onMenuItemClick }) => {
       <Route path='/register' exact>
         <div className={styles.plantContainer}>
           <Register />
+        </div>
+      </Route>
+      <Route path='/reset' exact>
+        <div className={styles.plantContainer}>
+          <Reset />
+        </div>
+      </Route>
+      <Route path='/reset/:token'>
+        <div className={styles.plantContainer}>
+          <Reset />
         </div>
       </Route>
       <Route path='/' exact>

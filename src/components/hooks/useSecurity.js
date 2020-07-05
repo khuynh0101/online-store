@@ -80,10 +80,68 @@ export const useSecurity = () => {
     }
   };
 
+  const resetLink = async (email, callBackFunc) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_USER_PREFIX_URL}SendResetLink`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            UserName: email,
+            Password: '',
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data.content);
+      callBackFunc({
+        token: data.content,
+      });
+    } catch {
+      callBackFunc({
+        status: 'Error',
+        message: 'Error occurred. Please try again.',
+      });
+    }
+  };
+
+  const reset = async (email, password, callBackFunc) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_USER_PREFIX_URL}Reset`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            UserName: email,
+            Password: password,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data.content);
+      callBackFunc({
+        status: data.content,
+      });
+    } catch {
+      callBackFunc({
+        status: 'Error',
+        message: 'Error occurred. Please try again.',
+      });
+    }
+  };
+
   const signOut = () => {
     document.cookie = `u='';path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT`;
     setLoggedIn(false);
   };
 
-  return { isLoggedIn, register, signIn, signOut };
+  return { isLoggedIn, register, signIn, resetLink, reset, signOut };
 };

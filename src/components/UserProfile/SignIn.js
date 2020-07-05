@@ -115,14 +115,19 @@ export const SignIn = () => {
                 hasError={state.passwordHasError}
               />
             </div>
-            <div>
-              <button
-                disabled={!enableButton}
-                className={globalStyles.button}
-                onClick={handleSignInClick}
-              >
-                Sign In
-              </button>
+            <button
+              disabled={!enableButton}
+              className={globalStyles.button}
+              onClick={handleSignInClick}
+            >
+              Sign In
+            </button>
+            <div
+              className={`${globalStyles.textSmaller} ${styles.forgotPassword}`}
+            >
+              <Link className={globalStyles.link} to='/reset'>
+                Forgot Password?
+              </Link>
             </div>
             <div>
               <p className={globalStyles.textMedium}>{message}</p>
@@ -130,12 +135,10 @@ export const SignIn = () => {
             <p>
               <span className={globalStyles.textSmall}>
                 Don't have an account.{' '}
-                <Link
-                  className={`${globalStyles.textSmall} ${globalStyles.link}`}
-                  to='/register'
-                >
-                  Register here
+                <Link className={globalStyles.link} to='/register'>
+                  Register{' '}
                 </Link>
+                here
               </span>
             </p>
           </>

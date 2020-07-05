@@ -137,7 +137,7 @@ export const Register = () => {
               </button>
             </div>
             <div>
-              <p className={globalStyles.textMedium}>
+              <p className={globalStyles.textSmall}>
                 {registerStatus === 'Registered' && (
                   <>
                     Thank you for registering. Please click{' '}
@@ -152,6 +152,7 @@ export const Register = () => {
                     Looks like the email is already registered. If you forgot
                     your password, please click
                     <Link className={globalStyles.link} to='/reset'>
+                      {' '}
                       here
                     </Link>{' '}
                     to reset.

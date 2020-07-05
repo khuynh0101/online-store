@@ -10,6 +10,7 @@ export const useNavStore = () => {
       const response = await fetch(url);
       const data = await response.json();
       setState(data);
+      console.log(data);
     }
     getMenu();
   }, []);
