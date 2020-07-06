@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '../DataEntry/Input/Input';
 import { checkEmailValid } from '../../utils/checkEmailValid';
-import { useSecurity } from '../hooks/useSecurity';
+import { useSecurityState } from '../Providers/SecurityState';
 import { Link, useHistory } from 'react-router-dom';
 import { checkEnterKey } from '../../utils/checkEnterKey';
 import styles from './register.module.css';
@@ -18,7 +18,7 @@ export const Register = () => {
     confirmPasswordHasError: false,
     messageSent: false,
   });
-  const { isLoggedIn, register } = useSecurity();
+  const { isLoggedIn, register } = useSecurityState();
   const [registerStatus, setRegisterStatus] = useState('');
 
   const [enableButton, setEnableButton] = useState(false);

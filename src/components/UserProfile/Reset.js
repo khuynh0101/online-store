@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '../DataEntry/Input/Input';
 import { checkEmailValid } from '../../utils/checkEmailValid';
-import { useSecurity } from '../hooks/useSecurity';
+import { useSecurityState } from '../Providers/SecurityState';
 import { checkEnterKey } from '../../utils/checkEnterKey';
 import { ResetLink } from './ResetLink';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ export const Reset = () => {
     confirmPasswordHasError: false,
     messageSent: false,
   });
-  const { reset } = useSecurity();
+  const { reset } = useSecurityState();
   const [status, setStatus] = useState('');
 
   const [enableButton, setEnableButton] = useState(false);
@@ -136,16 +136,24 @@ export const Reset = () => {
                 and password.
               </>
             )}
-            {status === 'Invalid Token' ||
-              (status === 'Failed' && (
-                <>
-                  Looks like you have an invalid link. Please click{' '}
-                  <Link className={globalStyles.link} to='/reset'>
-                    here
-                  </Link>{' '}
-                  to generate a new one.
-                </>
-              ))}
+            {status === 'Invalid Token' && (
+              <>
+                Looks like you have an invalid link. Please click{' '}
+                <Link className={globalStyles.link} to='/reset'>
+                  here
+                </Link>{' '}
+                to generate a new one.
+              </>
+            )}
+            {status === 'Failed' && (
+              <>
+                Looks like you have an invalid link. Please click{' '}
+                <Link className={globalStyles.link} to='/reset'>
+                  here
+                </Link>{' '}
+                to generate a new one.
+              </>
+            )}
           </p>
         </div>
       </div>

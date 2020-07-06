@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '../DataEntry/Input/Input';
 import { checkEmailValid } from '../../utils/checkEmailValid';
-import { useSecurity } from '../hooks/useSecurity';
+import { useSecurityState } from '../Providers/SecurityState';
 import { Link, useHistory } from 'react-router-dom';
 import { checkEnterKey } from '../../utils/checkEnterKey';
 import styles from './signin.module.css';
@@ -16,7 +16,7 @@ export const SignIn = () => {
     passwordHasError: false,
     messageSent: false,
   });
-  const { isLoggedIn, signIn, signOut } = useSecurity();
+  const { isLoggedIn, signIn, signOut } = useSecurityState();
   const [message, setMessage] = useState('');
 
   const [enableButton, setEnableButton] = useState(false);
@@ -69,6 +69,7 @@ export const SignIn = () => {
 
   const updateMessage = ({ status, message }) => {
     if (!status) setMessage(message);
+    else setMessage(`Welcom back, ${state.email}`);
   };
   return (
     <section
@@ -76,7 +77,9 @@ export const SignIn = () => {
       onKeyDown={(event) => checkEnterKey(event, handleSignInClick)}
     >
       <p className={globalStyles.textLarge}>Sign In</p>
-
+      <div>
+        <p className={globalStyles.textMedium}>{message}</p>
+      </div>
       <div className={styles.container}>
         {isLoggedIn && (
           <>

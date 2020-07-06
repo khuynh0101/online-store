@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '../DataEntry/Input/Input';
 import { checkEmailValid } from '../../utils/checkEmailValid';
-import { useSecurity } from '../hooks/useSecurity';
+import { useSecurityState } from '../Providers/SecurityState';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { checkEnterKey } from '../../utils/checkEnterKey';
 import styles from './resetlink.module.css';
@@ -13,7 +13,7 @@ export const ResetLink = () => {
     email: '',
     emailhasError: false,
   });
-  const { resetLink } = useSecurity();
+  const { resetLink } = useSecurityState();
   const [message, setMessage] = useState('');
 
   const [enableButton, setEnableButton] = useState(false);

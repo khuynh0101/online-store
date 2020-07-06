@@ -5,6 +5,7 @@ import { Layout } from './components/Layout/Layout';
 import { CartStateProvider } from './components/Providers/CartState';
 import { ProductsStateProvider } from './components/Providers/ProductsState';
 import { ContactInfoStateProvider } from './components/Providers/ContactInfoState';
+import { SecurityStateProvider } from './components/Providers/SecurityState';
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
         <ProductsStateProvider>
           <CartStateProvider>
             <ContactInfoStateProvider>
-              <Layout />
+              <SecurityStateProvider>
+                <Layout />
+              </SecurityStateProvider>
             </ContactInfoStateProvider>
           </CartStateProvider>
         </ProductsStateProvider>
