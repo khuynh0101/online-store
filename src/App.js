@@ -12,13 +12,13 @@ const App = () => {
     <>
       <Router>
         <ProductsStateProvider>
-          <CartStateProvider>
-            <ContactInfoStateProvider>
-              <SecurityStateProvider>
+          <SecurityStateProvider>
+            <CartStateProvider>
+              <ContactInfoStateProvider>
                 <Layout />
-              </SecurityStateProvider>
-            </ContactInfoStateProvider>
-          </CartStateProvider>
+              </ContactInfoStateProvider>
+            </CartStateProvider>
+          </SecurityStateProvider>
         </ProductsStateProvider>
       </Router>
     </>

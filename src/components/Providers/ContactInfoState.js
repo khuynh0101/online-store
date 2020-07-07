@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
-
+import React, { useContext, useState, useEffect } from 'react';
+import { useSecurityState } from './SecurityState';
+import { getContactInformation } from '../APIs/UserAPI';
 export const ContactProps = {
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
@@ -13,6 +14,8 @@ export const ContactProps = {
 
 const ContactInfoStateContext = React.createContext();
 export const ContactInfoStateProvider = ({ children }) => {
+  const { getEncodedData } = useSecurityState();
+
   const [contact, setContact] = useState({
     billing: {
       firstName: '',
@@ -37,6 +40,39 @@ export const ContactInfoStateProvider = ({ children }) => {
     isSameContact: false,
     saveContactInformation: false,
   });
+
+  useEffect(() => {
+    const encodedData = getEncodedData();
+    getContactInformation(encodedData, getContactInformationCompleted);
+  }, []);
+
+  const getContactInformationCompleted = (result) => {
+    const contact = {
+      billing: {
+        firstName: result.BillingContact.FirstName,
+        lastName: result.BillingContact.LastName,
+        address: result.BillingContact.Address,
+        apt: result.BillingContact.Apt,
+        city: result.BillingContact.City,
+        state: result.BillingContact.State,
+        zipCode: result.BillingContact.ZipCode,
+        phoneNumber: result.BillingContact.PhoneNumber,
+      },
+      shipping: {
+        firstName: result.ShippingContact.FirstName,
+        lastName: result.ShippingContact.LastName,
+        address: result.ShippingContact.Address,
+        apt: result.ShippingContact.Apt,
+        city: result.ShippingContact.City,
+        state: result.ShippingContact.State,
+        zipCode: result.ShippingContact.ZipCode,
+        phoneNumber: result.ShippingContact.PhoneNumber,
+      },
+      isSameContact: false,
+      saveContactInformation: false,
+    };
+    setContact(contact);
+  };
 
   const getContactInfo = () => {
     return { ...contact };
@@ -63,7 +99,6 @@ export const ContactInfoStateProvider = ({ children }) => {
     contact.saveContactInformation = !contact.saveContactInformation;
     setContact(contact);
   };
-
   const value = {
     contact,
     toggleSameContact,

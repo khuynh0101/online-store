@@ -4,6 +4,7 @@ import globalStyles from '../../../app.module.css';
 
 export const Input = ({
   type = 'text',
+  id,
   name,
   isRequired = false,
   value,
@@ -60,6 +61,7 @@ export const Input = ({
       return (
         <label className={styles.checkboxLabel}>
           <input
+            id={id}
             type='checkbox'
             className={styles.checkbox}
             checked={value}
@@ -83,6 +85,7 @@ export const Input = ({
           </div>
           <div className={styles.textboxErrorContainer}>
             <input
+              id={id}
               type={type}
               value={value}
               placeholder={placeholder}

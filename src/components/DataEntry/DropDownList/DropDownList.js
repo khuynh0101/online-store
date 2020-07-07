@@ -3,7 +3,7 @@ import styles from './dropdownlist.module.css';
 import globalStyles from '../../../app.module.css';
 
 export const DropDownList = ({
-  type,
+  id,
   name,
   isRequired,
   value,
@@ -26,6 +26,7 @@ export const DropDownList = ({
       </div>
       <div className={styles.errorContainer}>
         <select
+          id={id}
           className={styles.list}
           value={value}
           onChange={onChange}

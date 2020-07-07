@@ -20,7 +20,6 @@ export const ShoppingCart = () => {
     if (prod && prod.length > 0) return prod[0];
     return null;
   };
-  const disabledCheckout = false;
   let totalItems = 0;
   cartItems.forEach((item) => {
     totalItems += item.numItem;
@@ -110,9 +109,7 @@ export const ShoppingCart = () => {
                     </a>
                   </li>
                   <li className={styles.amount}>
-                    <span className={styles.textMedium}>
-                      ${cartItem.numItem * product.Price}
-                    </span>
+                    <span className={styles.textMedium}>${cartItem.price}</span>
                   </li>
                 </ul>
               )

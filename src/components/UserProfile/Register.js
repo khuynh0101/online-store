@@ -8,7 +8,6 @@ import styles from './register.module.css';
 import globalStyles from '../../app.module.css';
 
 export const Register = () => {
-  const history = useHistory();
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -72,7 +71,7 @@ export const Register = () => {
   const handleConfirmPasswordOnBlur = (e) => {
     const stateObj = { ...state };
     stateObj.confirmPasswordHasError =
-      e.target.value.length === 0 || e.target.value != stateObj.password;
+      e.target.value.length === 0 || e.target.value !== stateObj.password;
     setState(stateObj);
   };
   const handleRegisterClick = () => {

@@ -19,22 +19,23 @@ export const CartStateProvider = ({ children }) => {
   };
 
   //if product is in cart, remove it. If it isn't, add it
-  const toggleToCart = (id) => {
+  const toggleToCart = (id, price) => {
     const items = [...cartItems];
     const index = items.findIndex((p) => p.id === id);
     if (index > -1) removeItem(id);
-    else addItem(id);
+    else addItem(id, price);
   };
 
   const inCart = (id) => {
     return cartItems.findIndex((p) => p.id === id) > -1;
   };
 
-  const addItem = (id) => {
+  const addItem = (id, price) => {
     const items = [...cartItems];
     const item = {
       id: id,
       numItem: 1,
+      price: price,
     };
     items.push(item);
     updateCart(items);

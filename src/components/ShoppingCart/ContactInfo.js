@@ -23,6 +23,7 @@ export const ContactInfo = ({
       <div>
         <div className={styles.inputContainer}>
           <Input
+            id='firstName'
             name='First Name:'
             isRequired='true'
             value={contactInfo.firstName}
@@ -81,6 +82,7 @@ export const ContactInfo = ({
             isRequired={true}
             name='State:'
             options={states}
+            value={contactInfo.state}
             onChange={(e) => onStateChange(e, ContactProps.STATE)}
             onBlur={(e) => onBlur(e, ContactProps.STATE)}
             hasError={errors.state}

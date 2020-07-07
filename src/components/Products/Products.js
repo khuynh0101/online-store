@@ -69,7 +69,7 @@ export const Products = ({ heading, products }) => {
                 <button
                   className={globalStyles.button}
                   type='button'
-                  onClick={() => toggleToCart(product.ProductId)}
+                  onClick={() => toggleToCart(product.ProductId, product.Price)}
                 >
                   {inCart(product.ProductId) && `Remove from cart`}
                   {!inCart(product.ProductId) && `Add to cart`}

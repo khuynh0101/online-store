@@ -7,7 +7,7 @@ import { ContactInfo } from './ContactInfo';
 import { OrderSummary } from '../OrderSummary/OrderSummary';
 import { useCartState } from '../Providers/CartState';
 import { useSecurityState } from '../Providers/SecurityState';
-
+import { saveContactInformation } from '../APIs/UserAPI';
 import {
   ContactProps,
   useContactInfoState,
@@ -118,102 +118,104 @@ export const Checkout = () => {
     if (isBilling) updateBillingContact(id, value);
     else updateShippingContact(id, value);
   };
-  const handlePlaceOrderClick = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    console.log(data);
+
     if (isLoggedIn && contact.saveContactInformation) {
       const encodedData = getEncodedData();
-      const response = await fetch(
-        `${process.env.REACT_APP_API_USER_PREFIX_URL}UpdateBilling`,
+      saveContactInformation(
+        encodedData,
         {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            authorization: `Basic ${encodedData}`,
+          BillingContact: {
+            FirstName: contact.billing.firstName,
+            LastName: contact.billing.lastName,
+            Address: contact.billing.address,
+            Apt: contact.billing.apt,
+            City: contact.billing.city,
+            State: contact.billing.state,
+            ZipCode: contact.billing.zipCode,
+            PhoneNumber: contact.billing.phoneNumber,
           },
-          body: JSON.stringify({
-            BillingContacts: {
-              FirstName: contact.billing.firstName,
-              LastName: contact.billing.lastName,
-              Address: contact.billing.address,
-              Apt: contact.billing.apt,
-              City: contact.billing.city,
-              State: contact.billing.state,
-              ZipCode: contact.billing.zipCode,
-              PhoneNumber: contact.billing.phoneNumber,
-            },
-            ShippingContacts: {
-              FirstName: contact.shipping.firstName,
-              LastName: contact.shipping.lastName,
-              Address: contact.shipping.address,
-              Apt: contact.shipping.apt,
-              City: contact.shipping.city,
-              State: contact.shipping.state,
-              ZipCode: contact.shipping.zipCode,
-              PhoneNumber: contact.shipping.phoneNumber,
-            },
-          }),
-        }
+          ShippingContact: {
+            FirstName: contact.shipping.firstName,
+            LastName: contact.shipping.lastName,
+            Address: contact.shipping.address,
+            Apt: contact.shipping.apt,
+            City: contact.shipping.city,
+            State: contact.shipping.state,
+            ZipCode: contact.shipping.zipCode,
+            PhoneNumber: contact.shipping.phoneNumber,
+          },
+        },
+        savedContactCompleted
       );
-      const data = await response.json();
     }
     //history.push('/confirm');
   };
 
-  return (
-    <section className={globalStyles.container}>
-      <p className={globalStyles.textMedium}>Check out</p>
-      <div className={styles.container}>
-        <div className={styles.billingOrdercontainer}>
-          <OrderSummary carts={cartItems} />
-          <ContactInfo
-            heading='Billing Information'
-            errors={errors.billing}
-            onStateChange={(event, id) => handleListChanged(event, id, true)}
-            onChange={(event, id) =>
-              updateContactInfo(id, event.target.value, true)
-            }
-            contactInfo={contact.billing}
-            onBlur={(event, id) => handleOnBlur(event, id, true)}
-            hasFocus={true}
-          />
-        </div>
-        <Input
-          type='checkbox'
-          value={contact.isSameContact ? 'checked' : false}
-          onChange={toggleSameContact}
-          name='Shipping address is the same as billing'
-        />
-        {!contact.isSameContact && (
-          <ContactInfo
-            errors={errors.shipping}
-            heading='Shipping Information'
-            onStateChange={(event, id) => handleListChanged(event, id, false)}
-            onChange={(event, id) =>
-              updateContactInfo(id, event.target.value, false)
-            }
-            contactInfo={contact.shipping}
-            onBlur={(event, id) => handleOnBlur(event, id, false)}
-          />
-        )}
+  const savedContactCompleted = (result) => {
+    //after saving contact information, will place order
+  };
 
-        <div className={styles.placeOrderButtonContainer}>
-          {isLoggedIn && (
-            <Input
-              type='checkbox'
-              value={contact.saveContactInformation ? 'checked' : false}
-              onChange={toggleSaveContactInformation}
-              name='Save contact information'
+  return (
+    <form onSubmit={handleSubmit}>
+      <section className={globalStyles.container}>
+        <p className={globalStyles.textMedium}>Check out</p>
+        <div className={styles.container}>
+          <div className={styles.billingOrdercontainer}>
+            <OrderSummary carts={cartItems} />
+            <ContactInfo
+              heading='Billing Information'
+              errors={errors.billing}
+              onStateChange={(event, id) => handleListChanged(event, id, true)}
+              onChange={(event, id) =>
+                updateContactInfo(id, event.target.value, true)
+              }
+              contactInfo={contact.billing}
+              onBlur={(event, id) => handleOnBlur(event, id, true)}
+              hasFocus={true}
+            />
+          </div>
+          <Input
+            type='checkbox'
+            value={contact.isSameContact ? 'checked' : false}
+            onChange={toggleSameContact}
+            name='Shipping address is the same as billing'
+          />
+          {!contact.isSameContact && (
+            <ContactInfo
+              errors={errors.shipping}
+              heading='Shipping Information'
+              onStateChange={(event, id) => handleListChanged(event, id, false)}
+              onChange={(event, id) =>
+                updateContactInfo(id, event.target.value, false)
+              }
+              contactInfo={contact.shipping}
+              onBlur={(event, id) => handleOnBlur(event, id, false)}
             />
           )}
-          <button
-            disabled={!enableOrderButton}
-            className={`${globalStyles.button} ${styles.placeOrderButton}`}
-            onClick={handlePlaceOrderClick}
-          >
-            Place order
-          </button>
+
+          <div className={styles.placeOrderButtonContainer}>
+            {isLoggedIn && (
+              <Input
+                type='checkbox'
+                value={contact.saveContactInformation ? 'checked' : false}
+                onChange={toggleSaveContactInformation}
+                name='Save contact information'
+              />
+            )}
+            <button
+              disabled={!enableOrderButton}
+              className={`${globalStyles.button} ${styles.placeOrderButton}`}
+              //onClick={handlePlaceOrderClick}
+            >
+              Place order
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </form>
   );
 };

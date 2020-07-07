@@ -5,13 +5,13 @@ export const ProductsStateProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    async function getProducts() {
+    async function getAllProducts() {
       const url = `${process.env.REACT_APP_API_STORE_PREFIX_URL}GetAllProducts`;
       const response = await fetch(url);
       const data = await response.json();
       setProducts(data);
     }
-    getProducts();
+    getAllProducts();
   }, []);
 
   const getProducts = () => {
