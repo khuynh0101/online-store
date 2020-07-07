@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styles from './checkout.module.css';
 import globalStyles from '../../app.module.css';
 import { useHistory } from 'react-router-dom';
+import { Input } from '../DataEntry/Input/Input';
 import { ContactInfo } from './ContactInfo';
 import { OrderSummary } from '../OrderSummary/OrderSummary';
+import { useCartState } from '../Providers/CartState';
+import { useSecurityState } from '../Providers/SecurityState';
+
 import {
   ContactProps,
   useContactInfoState,
@@ -12,6 +16,8 @@ import { useGetTotalCost } from '../hooks/useGetTotalCost';
 
 export const Checkout = () => {
   const history = useHistory();
+  const { cartItems } = useCartState();
+  const { isLoggedIn, getEncodedData } = useSecurityState();
   const [enableOrderButton, setEnableOrderButton] = useState(false);
   const [errors, setErrors] = useState({
     billing: {
@@ -35,10 +41,11 @@ export const Checkout = () => {
   });
 
   const {
-    getContactInfo,
+    contact,
     toggleSameContact,
     updateBillingContact,
     updateShippingContact,
+    toggleSaveContactInformation,
   } = useContactInfoState();
 
   useEffect(() => {
@@ -47,8 +54,8 @@ export const Checkout = () => {
 
   const isFormValid = () => {
     let enableOrderButton = true;
-    const contactBilling = getContactInfo().billing;
-    const contactShipping = getContactInfo().shipping;
+    const contactBilling = contact.billing;
+    const contactShipping = contact.shipping;
     Object.values(ContactProps).forEach(function (value, index) {
       if (value != ContactProps.APT) {
         if (
@@ -66,7 +73,7 @@ export const Checkout = () => {
         if (enableOrderButton && contactBilling[value].length === 0)
           enableOrderButton = false;
         //validate shipping if billing is all valid and users has different shipping information
-        if (enableOrderButton && !getContactInfo().isSameContact) {
+        if (enableOrderButton && !contact.isSameContact) {
           if (
             enableOrderButton &&
             value === ContactProps.ZIP_CODE &&
@@ -85,10 +92,6 @@ export const Checkout = () => {
       }
     });
     return enableOrderButton;
-  };
-
-  const toggleSameAddress = () => {
-    toggleSameContact();
   };
 
   const handleListChanged = (e, id, isBilling) => {
@@ -115,15 +118,53 @@ export const Checkout = () => {
     if (isBilling) updateBillingContact(id, value);
     else updateShippingContact(id, value);
   };
-  const handlePlaceOrderClick = () => {
-    history.push('/confirm');
+  const handlePlaceOrderClick = async () => {
+    if (isLoggedIn && contact.saveContactInformation) {
+      const encodedData = getEncodedData();
+      const response = await fetch(
+        `${process.env.REACT_APP_API_USER_PREFIX_URL}UpdateBilling`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            authorization: `Basic ${encodedData}`,
+          },
+          body: JSON.stringify({
+            BillingContacts: {
+              FirstName: contact.billing.firstName,
+              LastName: contact.billing.lastName,
+              Address: contact.billing.address,
+              Apt: contact.billing.apt,
+              City: contact.billing.city,
+              State: contact.billing.state,
+              ZipCode: contact.billing.zipCode,
+              PhoneNumber: contact.billing.phoneNumber,
+            },
+            ShippingContacts: {
+              FirstName: contact.shipping.firstName,
+              LastName: contact.shipping.lastName,
+              Address: contact.shipping.address,
+              Apt: contact.shipping.apt,
+              City: contact.shipping.city,
+              State: contact.shipping.state,
+              ZipCode: contact.shipping.zipCode,
+              PhoneNumber: contact.shipping.phoneNumber,
+            },
+          }),
+        }
+      );
+      const data = await response.json();
+    }
+    //history.push('/confirm');
   };
+
   return (
     <section className={globalStyles.container}>
       <p className={globalStyles.textMedium}>Check out</p>
       <div className={styles.container}>
         <div className={styles.billingOrdercontainer}>
-          <OrderSummary />
+          <OrderSummary carts={cartItems} />
           <ContactInfo
             heading='Billing Information'
             errors={errors.billing}
@@ -131,23 +172,18 @@ export const Checkout = () => {
             onChange={(event, id) =>
               updateContactInfo(id, event.target.value, true)
             }
-            contactInfo={getContactInfo().billing}
+            contactInfo={contact.billing}
             onBlur={(event, id) => handleOnBlur(event, id, true)}
             hasFocus={true}
           />
         </div>
-        <label className={styles.checkboxLabel}>
-          <input
-            type='checkbox'
-            className={styles.checkbox}
-            checked={getContactInfo().isSameContact ? 'checked' : false}
-            onChange={toggleSameAddress}
-          />
-          <span className={globalStyles.textSmall}>
-            Shipping address is the same as billing
-          </span>
-        </label>
-        {!getContactInfo().isSameContact && (
+        <Input
+          type='checkbox'
+          value={contact.isSameContact ? 'checked' : false}
+          onChange={toggleSameContact}
+          name='Shipping address is the same as billing'
+        />
+        {!contact.isSameContact && (
           <ContactInfo
             errors={errors.shipping}
             heading='Shipping Information'
@@ -155,15 +191,23 @@ export const Checkout = () => {
             onChange={(event, id) =>
               updateContactInfo(id, event.target.value, false)
             }
-            contactInfo={getContactInfo().shipping}
+            contactInfo={contact.shipping}
             onBlur={(event, id) => handleOnBlur(event, id, false)}
           />
         )}
 
-        <div className={styles.placeOrderButton}>
+        <div className={styles.placeOrderButtonContainer}>
+          {isLoggedIn && (
+            <Input
+              type='checkbox'
+              value={contact.saveContactInformation ? 'checked' : false}
+              onChange={toggleSaveContactInformation}
+              name='Save contact information'
+            />
+          )}
           <button
             disabled={!enableOrderButton}
-            className={globalStyles.button}
+            className={`${globalStyles.button} ${styles.placeOrderButton}`}
             onClick={handlePlaceOrderClick}
           >
             Place order

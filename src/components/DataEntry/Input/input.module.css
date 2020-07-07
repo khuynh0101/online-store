@@ -14,6 +14,34 @@
   right: 4px;
   fill: red;
 }
+.checkbox {
+  background-color: #fff;
+  border: 1px solid #3b9288;
+  padding: 10px;
+  display: inline-block;
+  -webkit-appearance: none;
+  position: relative;
+  width: 24px;
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+.checkbox:checked {
+  color: #184d47;
+}
+.checkbox:checked:after {
+  content: 'X';
+  font-size: 16px;
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  color: #184d47;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;

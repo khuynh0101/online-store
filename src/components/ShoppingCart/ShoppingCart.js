@@ -7,7 +7,7 @@ import { useCartState } from '../Providers/CartState';
 import { useGetTotalCost } from '../hooks/useGetTotalCost';
 
 export const ShoppingCart = () => {
-  const { getProducts } = useProductsState();
+  const { products } = useProductsState();
   const {
     cartItems,
     removeItem,
@@ -16,7 +16,7 @@ export const ShoppingCart = () => {
   } = useCartState();
 
   const getProduct = (id) => {
-    const prod = getProducts().filter((p) => p.ProductId === id);
+    const prod = products.filter((p) => p.ProductId === id);
     if (prod && prod.length > 0) return prod[0];
     return null;
   };

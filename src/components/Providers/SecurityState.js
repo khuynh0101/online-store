@@ -7,6 +7,17 @@ export const SecurityStateProvider = ({ children }) => {
     return document.cookie.indexOf('u=') > -1;
   });
 
+  const getEncodedData = () => {
+    let encodedData = '';
+    const cookies = document.cookie.split(';');
+    cookies.forEach((cookie) => {
+      if (cookie.indexOf('u=') > -1) {
+        encodedData = cookie.substr(cookie.indexOf('u=') + 2);
+      }
+    });
+    return encodedData;
+  };
+
   const register = async (email, password, callBackFunc) => {
     try {
       const response = await fetch(
@@ -151,6 +162,7 @@ export const SecurityStateProvider = ({ children }) => {
     resetLink,
     reset,
     signOut,
+    getEncodedData,
   };
 
   return <SecurityStateContext.Provider value={value} children={children} />;

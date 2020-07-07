@@ -35,6 +35,7 @@ export const ContactInfoStateProvider = ({ children }) => {
       phoneNumber: '',
     },
     isSameContact: false,
+    saveContactInformation: false,
   });
 
   const getContactInfo = () => {
@@ -57,11 +58,18 @@ export const ContactInfoStateProvider = ({ children }) => {
     contactShipping[id] = value;
     setContact(contact);
   };
+  const toggleSaveContactInformation = () => {
+    const contact = getContactInfo();
+    contact.saveContactInformation = !contact.saveContactInformation;
+    setContact(contact);
+  };
+
   const value = {
-    getContactInfo,
+    contact,
     toggleSameContact,
     updateBillingContact,
     updateShippingContact,
+    toggleSaveContactInformation,
   };
 
   return <ContactInfoStateContext.Provider value={value} children={children} />;

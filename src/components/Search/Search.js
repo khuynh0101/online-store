@@ -4,11 +4,11 @@ import { Products } from '../Products/Products';
 import { useProductsState } from '../Providers/ProductsState';
 
 export const Search = () => {
-  const { getProducts } = useProductsState();
+  const { products: allProducts } = useProductsState();
   const { term } = useParams();
   let products = null;
   if (term) {
-    products = getProducts().filter((p) =>
+    products = allProducts.filter((p) =>
       p.Keywords.toLowerCase().includes(term.toLowerCase())
     );
   }

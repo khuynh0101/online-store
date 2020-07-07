@@ -45,7 +45,7 @@ export const ProductsStateProvider = ({ children }) => {
     return null;
   };
   const value = {
-    getProducts,
+    products,
     getProductsById,
     selectProductItem,
     deSelectProductItem,

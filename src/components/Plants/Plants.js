@@ -4,8 +4,7 @@ import { Products } from '../Products/Products';
 import { useProductsState } from '../Providers/ProductsState';
 
 export const Plants = () => {
-  const { getProducts } = useProductsState();
-  const products = getProducts();
+  const { products } = useProductsState();
   let productsByCat = products;
   const { name } = useParams();
   if (name) {
