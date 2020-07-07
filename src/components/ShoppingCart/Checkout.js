@@ -7,7 +7,8 @@ import { ContactInfo } from './ContactInfo';
 import { OrderSummary } from '../OrderSummary/OrderSummary';
 import { useCartState } from '../Providers/CartState';
 import { useSecurityState } from '../Providers/SecurityState';
-import { saveContactInformation } from '../APIs/UserAPI';
+import { checkEmailValid } from '../../utils/checkEmailValid';
+import { saveContactInformation, placeOrder } from '../APIs/UserAPI';
 import {
   ContactProps,
   useContactInfoState,
@@ -17,8 +18,9 @@ import { useGetTotalCost } from '../hooks/useGetTotalCost';
 export const Checkout = () => {
   const history = useHistory();
   const { cartItems } = useCartState();
-  const { isLoggedIn, getEncodedData } = useSecurityState();
+  const { isLoggedIn, getEncodedData, getEmail } = useSecurityState();
   const [enableOrderButton, setEnableOrderButton] = useState(false);
+  const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({
     billing: {
       firstName: false,
@@ -28,6 +30,7 @@ export const Checkout = () => {
       state: false,
       zipCode: false,
       phoneNumber: false,
+      email: false,
     },
     shipping: {
       firstName: false,
@@ -70,7 +73,21 @@ export const Checkout = () => {
           contactBilling[value].length !== 12
         )
           enableOrderButton = false;
-        if (enableOrderButton && contactBilling[value].length === 0)
+
+        //only check email field if user is not logged in. if user is logged in, we already have their email address
+        if (
+          !isLoggedIn &&
+          enableOrderButton &&
+          value === ContactProps.EMAIL &&
+          !checkEmailValid(contactBilling[value])
+        )
+          enableOrderButton = false;
+
+        if (
+          enableOrderButton &&
+          contactBilling[value] &&
+          contactBilling[value].length === 0
+        )
           enableOrderButton = false;
         //validate shipping if billing is all valid and users has different shipping information
         if (enableOrderButton && !contact.isSameContact) {
@@ -86,7 +103,11 @@ export const Checkout = () => {
             contactShipping[value].length !== 12
           )
             enableOrderButton = false;
-          if (enableOrderButton && contactShipping[value].length === 0)
+          if (
+            enableOrderButton &&
+            contactShipping[value] &&
+            contactShipping[value].length === 0
+          )
             enableOrderButton = false;
         }
       }
@@ -120,43 +141,27 @@ export const Checkout = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(data);
 
+    const encodedData = getEncodedData();
     if (isLoggedIn && contact.saveContactInformation) {
-      const encodedData = getEncodedData();
-      saveContactInformation(
-        encodedData,
-        {
-          BillingContact: {
-            FirstName: contact.billing.firstName,
-            LastName: contact.billing.lastName,
-            Address: contact.billing.address,
-            Apt: contact.billing.apt,
-            City: contact.billing.city,
-            State: contact.billing.state,
-            ZipCode: contact.billing.zipCode,
-            PhoneNumber: contact.billing.phoneNumber,
-          },
-          ShippingContact: {
-            FirstName: contact.shipping.firstName,
-            LastName: contact.shipping.lastName,
-            Address: contact.shipping.address,
-            Apt: contact.shipping.apt,
-            City: contact.shipping.city,
-            State: contact.shipping.state,
-            ZipCode: contact.shipping.zipCode,
-            PhoneNumber: contact.shipping.phoneNumber,
-          },
-        },
-        savedContactCompleted
-      );
+      saveContactInformation(encodedData, contact, savedContactCompleted);
+    } else {
+      const email = isLoggedIn ? getEmail() : contact.billing.email;
+      placeOrder(email, cartItems, contact, orderCompleted);
     }
     //history.push('/confirm');
   };
 
   const savedContactCompleted = (result) => {
     //after saving contact information, will place order
+    //const encodedData = getEncodedData();
+    const email = isLoggedIn ? getEmail() : contact.billing.email;
+    placeOrder(email, cartItems, contact, orderCompleted);
+  };
+
+  const orderCompleted = (result) => {
+    if (result.OrderNumber) history.push(`/confirm/${result.OrderNumber}`);
+    else setMessage('Order was placed. Please try again later.');
   };
 
   return (
@@ -176,6 +181,7 @@ export const Checkout = () => {
               contactInfo={contact.billing}
               onBlur={(event, id) => handleOnBlur(event, id, true)}
               hasFocus={true}
+              showEmail={!isLoggedIn}
             />
           </div>
           <Input
@@ -194,6 +200,7 @@ export const Checkout = () => {
               }
               contactInfo={contact.shipping}
               onBlur={(event, id) => handleOnBlur(event, id, false)}
+              showEmail={false}
             />
           )}
 
@@ -214,6 +221,7 @@ export const Checkout = () => {
               Place order
             </button>
           </div>
+          <p className={globalStyles.textMedium}>{message}</p>
         </div>
       </section>
     </form>

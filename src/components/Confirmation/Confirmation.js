@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styles from './confirmation.module.css';
 import globalStyles from '../../app.module.css';
 import { useCartState } from '../Providers/CartState';
@@ -17,14 +17,13 @@ export const Confirmation = () => {
   useEffect(() => {
     removeAllItems();
   }, []);
+  const { contact } = useContactInfoState();
+  const { orderNumber } = useParams();
 
-  const { getContactInfo } = useContactInfoState();
-  const billingInfo = getContactInfo().billing;
-  const shippingInfo = getContactInfo().isSameContact
-    ? billingInfo
-    : getContactInfo().shipping;
+  const billingInfo = contact.billing;
+  const shippingInfo = contact.isSameContact ? billingInfo : contact.shipping;
 
-  if (billingInfo.firstName.length === 0) location.push('/');
+  // if (billingInfo.firstName.length === 0) location.push('/');
   const renderContactInfo = (contactInfo) => {
     return (
       <>

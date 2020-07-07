@@ -53,7 +53,7 @@ export const Layout = ({ menu, onMenuItemClick }) => {
           <Checkout />
         </div>
       </Route>
-      <Route path='/confirm'>
+      <Route path='/confirm/:orderNumber'>
         <div className={styles.plantContainer}>
           <Confirmation />
         </div>

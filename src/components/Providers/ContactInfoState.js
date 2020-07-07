@@ -10,6 +10,7 @@ export const ContactProps = {
   STATE: 'state',
   ZIP_CODE: 'zipCode',
   PHONE_NUMBER: 'phoneNumber',
+  EMAIL: 'email',
 };
 
 const ContactInfoStateContext = React.createContext();
@@ -26,6 +27,7 @@ export const ContactInfoStateProvider = ({ children }) => {
       state: '',
       zipCode: '',
       phoneNumber: '',
+      email: '',
     },
     shipping: {
       firstName: '',
@@ -43,7 +45,8 @@ export const ContactInfoStateProvider = ({ children }) => {
 
   useEffect(() => {
     const encodedData = getEncodedData();
-    getContactInformation(encodedData, getContactInformationCompleted);
+    if (encodedData)
+      getContactInformation(encodedData, getContactInformationCompleted);
   }, []);
 
   const getContactInformationCompleted = (result) => {
@@ -57,6 +60,7 @@ export const ContactInfoStateProvider = ({ children }) => {
         state: result.BillingContact.State,
         zipCode: result.BillingContact.ZipCode,
         phoneNumber: result.BillingContact.PhoneNumber,
+        email: result.BillingContact.Email,
       },
       shipping: {
         firstName: result.ShippingContact.FirstName,
@@ -80,17 +84,19 @@ export const ContactInfoStateProvider = ({ children }) => {
   const toggleSameContact = () => {
     const contact = getContactInfo();
     contact.isSameContact = !contact.isSameContact;
+    if (contact.isSameContact) contact.shipping = contact.billing;
     setContact(contact);
   };
   const updateBillingContact = (id, value) => {
     const contact = getContactInfo();
-    const contactBilling = getContactInfo().billing;
+    const contactBilling = contact.billing;
     contactBilling[id] = value;
+    if (contact.isSameContact) contact.shipping[id] = value;
     setContact(contact);
   };
   const updateShippingContact = (id, value) => {
     const contact = getContactInfo();
-    const contactShipping = getContactInfo().shipping;
+    const contactShipping = contact.shipping;
     contactShipping[id] = value;
     setContact(contact);
   };

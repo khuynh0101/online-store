@@ -18,6 +18,12 @@ export const SecurityStateProvider = ({ children }) => {
     return encodedData;
   };
 
+  const getEmail = () => {
+    const encodedData = getEncodedData();
+    const emailPassword = window.atob(encodedData);
+    return emailPassword.split(':')[0];
+  };
+
   const register = async (email, password, callBackFunc) => {
     try {
       const response = await fetch(
@@ -163,6 +169,7 @@ export const SecurityStateProvider = ({ children }) => {
     reset,
     signOut,
     getEncodedData,
+    getEmail,
   };
 
   return <SecurityStateContext.Provider value={value} children={children} />;

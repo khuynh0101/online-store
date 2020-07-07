@@ -36,6 +36,7 @@ export const CartStateProvider = ({ children }) => {
       id: id,
       numItem: 1,
       price: price,
+      unitPrice: price,
     };
     items.push(item);
     updateCart(items);
@@ -58,7 +59,7 @@ export const CartStateProvider = ({ children }) => {
     if (index > -1) {
       const item = items[index];
       item.numItem++;
-      item.price = item.numItem * item.price;
+      item.price = item.numItem * item.unitPrice;
     }
     updateCart(items);
   };
@@ -70,7 +71,7 @@ export const CartStateProvider = ({ children }) => {
       const item = items[index];
       if (item.numItem > 1) {
         item.numItem--;
-        item.price = item.numItem * item.price;
+        item.price = item.numItem * item.unitPrice;
       }
     }
     updateCart(items);

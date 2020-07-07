@@ -15,6 +15,7 @@ export const ContactInfo = ({
   contactInfo,
   hasFocus,
   errors,
+  showEmail = true,
 }) => {
   const history = useHistory();
   return (
@@ -112,6 +113,19 @@ export const ContactInfo = ({
             hasError={errors.phoneNumber}
           />
         </div>
+        {showEmail && (
+          <div className={styles.inputContainer}>
+            <Input
+              type='email'
+              name='Email:'
+              isRequired='true'
+              value={contactInfo.email}
+              onChange={(e) => onChange(e, ContactProps.EMAIL)}
+              onBlur={(e) => onBlur(e, ContactProps.EMAIL)}
+              hasError={errors.email}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
